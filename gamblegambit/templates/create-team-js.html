@@ -1,0 +1,168 @@
+{% extends "base.html"%} {% block content %} {{ match|json_script:"hello-data" }}
+<style>
+    body {
+        text-align: center;
+    }
+    
+    .teams-container {
+        width: 50%;
+        height: 40vh;
+        padding: 2px 12px;
+        margin-bottom: 10px;
+    }
+    
+    #teams {
+        display: block;
+        width: 100%"
+
+    }
+    
+    img {
+        height: 50px;
+        width: 50px;
+    }
+    
+    #team-a {
+        background: lightcoral;
+        color: rgb(108, 38, 38);
+    }
+    
+    #team-b {
+        background: lightblue;
+        color: rgb(1, 61, 80);
+    }
+    
+    #team-active {
+        background: lightgreen;
+    }
+    
+    .player-card {
+        border: 1px solid black;
+        background: rgba(120, 90, 90, 0.507);
+    }
+    
+    .player-card:hover {
+        box-shadow: 2px 2px 5px black;
+    }
+    
+    h4 {
+        font-size: 16px;
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<div id="title">
+    <h2 id="match-title"></h2>
+    <div id="match-meta-data" style="text-align: center;">
+        <h4 id="time"></h4>
+        <h4 id="game"></h4>
+        <h4 id="competation"></h4>
+    </div>
+</div>
+<div id="teams">
+    <div class="row">
+        <div class="roster col-7">
+            <div id="team-a" class="teams-container container">Team A</div>
+            <div id="team-b" class="teams-container container">Team B</div>
+        </div>
+        <div class="my-team col-5">
+            <div id="team-active" class="teams-container container">My Team</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const data = JSON.parse(document.getElementById('hello-data').textContent);
+    console.log(data);
+
+    appendData(data);
+
+    function appendData(data) {
+        var title = document.getElementById("match-title");
+        var time = document.getElementById("time");
+        var game = document.getElementById("game");
+        var competition = document.getElementById("competation");
+        var team_a = document.getElementById("team-a");
+        var team_b = document.getElementById("team-b");
+        var mainContainer = document.getElementById("teams");
+
+
+        var team1 = data["roster"][data["team_a"]];
+        var team2 = data["roster"][data["team_b"]];
+
+
+        team_a.innerHTML = data["team_a"];
+        team_b.innerHTML = data["team_b"];
+
+        console.log(data["competation"]);
+        console.log(data["roster"]);
+
+        title.innerHTML = data["title"];
+        time.innerHTML = data["time"];
+        game.innerHTML = data["game"];
+        competition.innerHTML = data["competation"];
+
+        for (var i = 0; i < team1.length; i++) {
+            var div = document.createElement("div");
+            var img = document.createElement("img");
+
+            div.className = "teams-a-player-" + i;
+            div.classList.add("player-card");
+            div.classList.add(".col-md-10");
+            div.innerHTML = team1[i];
+            team_a.appendChild(div);
+
+            img.className = "img-player-" + i;
+            img.classList.add("player-img-card");
+            img.src = data["photos"][team1[i]];
+
+            div.appendChild(img);
+        }
+        for (var j = 0; j < team2.length; j++) {
+            var div = document.createElement("div");
+            var img = document.createElement("img");
+
+            div.className = "teams-b-player-" + j;
+            div.classList.add("player-card");
+            div.innerHTML = team2[j];
+            team_b.appendChild(div);
+
+            img.className = "img-player-" + j;
+            img.classList.add("player-img-card");
+            img.src = data["photos"][team2[j]];
+
+            div.appendChild(img);
+        }
+
+
+        // logic for team creation
+    }
+    $("#team-a").on("click", "div", function() {
+        if ($("#team-a").children().length > 2 && $("#team-active").children().length < 5) {
+            $("#team-active").append($(this));
+            $(this).addClass("active1");
+        }
+
+
+    });
+    $("#team-b").on("click", "div", function() {
+        if ($("#team-b").children().length > 2 && $("#team-active").children().length < 5) {
+            $("#team-active").append($(this));
+            $(this).addClass("active2");
+        }
+
+
+    });
+
+    $("#team-active").on("click", "div", function() {
+        if ($(this).hasClass("active1")) {
+            $("#team-a").append($(this));
+            $(this).removeClass("active1");
+        } else {
+            $("#team-b").append($(this));
+            $(this).removeClass("active2");
+        }
+
+    });
+</script>
+
+{% endblock content%}

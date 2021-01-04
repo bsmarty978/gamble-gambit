@@ -1,0 +1,42 @@
+from django.shortcuts import render,redirect
+from django.http import HttpResponse
+import json
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
+# Create your views here.
+
+f = open("uplistphotos.json",)
+match_list = json.load(f)
+
+
+def search_team_title(title):
+    for match in match_list:
+        # print(match["title"]) for debug purpose
+        if match["title"] == title:
+            return match
+    else:
+        return {"title": "Match Not Available"}
+
+def sample(request):
+    return HttpResponse("hello app is working")
+
+@login_required(login_url='login')
+def create_team(request, title):
+    # print(title)  for debug purpose
+    # print(request.user.is_authenticated)  checks user is authenicted or not
+
+    match = search_team_title(title)
+    team_a_photos = []
+    team_b_photos = []
+    for player in match["photos"]:
+        if player in match["roster"][match["team_a"]]:
+            team_a_photos.append({player:match["photos"][player]})
+        else:
+            team_b_photos.append({player:match["photos"][player]})
+
+    match["team_a_photos"] = team_a_photos
+    match["team_b_photos"] = team_b_photos
+
+    # return render(request,"create-team-js.html",{"match":match})
+    return render(request,"create-team.html",match)

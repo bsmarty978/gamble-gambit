@@ -1,0 +1,43 @@
+<style>
+    .tabs-links {
+        transition: all 1s;
+    }
+    
+    .tabs-links:hover {
+        background-color: cyan;
+    }
+    
+    .user-header {
+        margin-right: 0.5em;
+    }
+</style>
+
+<!-- <nav class="tabs-container nav">
+    <a id="upcoming-tab" href="/upcoming" class="tabs-links nav-link">Upcoming</a>
+    <a id="ongoing-tab" href="/ongoing" class="tabs-links nav-link">Onging</a>
+    <a id="results-tab" href="/resutls" class="tabs-links nav-link">Results</a>
+    <a id="stats-tab" href="/stats" class="tabs-links nav-link">Stats</a>
+</nav> -->
+
+
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: cyan;">
+    <a class="navbar-brand" href="/home">GAMBLE:GAMBIT</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a id="home-tab" class="nav-item nav-link active" href="/home">Home <span class="sr-only">(current)</span></a>
+            <a id="upcoming-tab" class="nav-item nav-link" href="/upcoming">Upcoming</a>
+            <a id="results-tab" class="nav-item nav-link" href="/resutls">Results</a>
+            <a id="stats-tab" class="nav-item nav-link" href="/stats">Stats</a>
+        </div>
+    </div>
+    <!-- <div class="user-header">
+        <div id="user-profile">
+            <div id="username">Welcome,</div>
+        </div> -->
+
+    <span class="user-header">Welcome, {{user}}</span>
+    <span><a class="user-header" href="{% url 'logout' %}" style="text-decoration: none;">Logout</a></span>
+</nav>

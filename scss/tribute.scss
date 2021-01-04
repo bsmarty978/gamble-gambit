@@ -1,0 +1,53 @@
+@font-face {
+    font-family: myfont;
+    src: url("/assets/fonts/ZCOOLQingKeHuangYou-Regular.ttf");
+}
+
+body {
+    font-family: myfont;
+    margin: 0 auto;
+    background: linear-gradient(90deg, black, rgb(54, 0, 92));
+    font-size: 1.2rem;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(245, 186, 10);
+}
+
+main {
+    margin: 0 auto;
+}
+
+header {
+    margin: 0 auto;
+    background-color: black;
+    text-align: center;
+    width: 100%;
+    border-top: 1px solid black;
+    color: rgb(43, 255, 0);
+}
+
+#img-div {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+    height: auto;
+    margin: 0 auto;
+    box-shadow: 10px 5px 50px black;
+}
+
+#img-caption {
+    padding: 2em;
+    color: rgb(245, 186, 10);
+}
+
+#tribute-info {
+    color: lightgreen;
+}

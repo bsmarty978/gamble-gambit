@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/scss/form.css">
+    <title>Form</title>
+</head>
+
+<body>
+    <header>
+        <h1 id="title">FPS Gamer Survey form</h1>
+        <p id="description">Thank you for taking time to fill the fps gamer survey form fellow gamer</p>
+    </header>
+
+    <form action="" id="survey-form">
+        <div class="form-group">
+            <label for="name" id="name-label">Name</label>
+            <input type="text" name="name" id="name" placeholder="your name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email" id="email-label">Email</label>
+            <input type="email" name="email" id="email" placeholder="something@email.com" required>
+        </div>
+
+        <div class="form-group">
+            <label for="number" id="number-label">Age</label>
+            <span class="clue">(optional)</span>
+            <input type="number" name="age" id="number" placeholder="your age" min=10 max=99>
+        </div>
+
+        <div class="form-group">
+            <p>Your favorite FPS Game?</p>
+            <select id="dropdown" name="role" class="form-control" required>
+                <option disabled selected value>Select favorite FPS Game</option>
+                <option value="Rainbow 6 siege">Rainbow 6 siege</option>
+                <option value="Pubg">Pubg</option>
+                <option value="Hyper scape">Hyper scape</option>
+                <option value="Valorant">Valorant</option>
+                <option value="CS:go">CS:go</option>
+                <option value="COD">COD</option>
+                <option value="Overwatch">Overwatch</option>
+                <option value="Fortnite">Fortnite</option>
+                <option value="other">Other</option>
+              </select>
+        </div>
+
+        <div class="form-group">
+            <P>what is your level in your favorite FPS Game?</P>
+            <label>
+                <input
+                  name="level"
+                  value="Noob"
+                  type="radio"
+                  class="input-radio"
+                  checked
+                />Noob</label>
+            <label>
+                <input
+                  name="level"
+                  value="Amateur"
+                  type="radio"
+                  class="input-radio"
+                />Amateur</label>
+
+            <label>
+                <input
+                  name="level"
+                  value="Pro"
+                  type="radio"
+                  class="input-radio"
+                />Pro</label>
+        </div>
+
+        <div class="form-group">
+            <P>which systems do you prefer to play?</P>
+            <label>
+                <input
+                  name="system"
+                  value="pc"
+                  type="checkbox"
+                  class="input-checkbox"
+                  checked
+                />PC</label>
+            <label>
+                <input
+                  name="system"
+                  value="xbox"
+                  type="checkbox"
+                  class="input-checkbox"
+                />Xbox</label>
+
+            <label>
+                <input
+                  name="system"
+                  value="playstation"
+                  type="checkbox"
+                  class="input-checkbox"
+                />Playstation</label>
+
+            <label>
+                <input
+                  name="system"
+                  value="other"
+                  type="checkbox"
+                  class="input-checkbox"
+                />Other</label>
+        </div>
+
+        <div class="form-group">
+            <p>Give brief information about you</p>
+            <textarea id="comments" class="input-textarea" name="comment" placeholder="Enter information about yourself here"></textarea>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" id="submit" class="submit-button">
+              Submit
+            </button>
+        </div>
+    </form>
+</body>
+
+</html>

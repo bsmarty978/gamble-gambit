@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JSON Test</title>
+</head>
+
+<body>
+    <div id="myData"></div>
+    <script>
+        fetch('exu.json')
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                appendData(data);
+            })
+            .catch(function(err) {
+                console.log('error: ' + err);
+            });
+
+        function appendData(data) {
+            var mainContainer = document.getElementById("myData");
+            for (var i = 0; i < data.length; i++) {
+                var a = document.createElement("a");
+                a.className = 'Upcoming_match';
+                a.id = 'match_no' + data[i];
+                a.innerHTML = 'Match_Name: ' + data[i]["title"] + '</br>' + 'time: ' + data[i]["time"] + '</br>' + 'Competation: ' + data[i]["competation"] + '</br></br>';
+                a.href = '/create_team_' + data[i]["title"];
+                mainContainer.appendChild(a);
+            }
+        }
+    </script>
+</body>
+
+</html>

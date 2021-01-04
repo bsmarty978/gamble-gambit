@@ -1,0 +1,213 @@
+{% extends "base.html"%} {% block content %}
+<style>
+    /* player card style */
+    
+    .ply-card {
+        min-height: 90px;
+        min-width: 90px;
+    }
+    
+    .player-a {
+        background-color: rgba(90, 98, 255, 0.569);
+        border-radius: 1em;
+        transition: 0.5s;
+    }
+    
+    .player-a:hover {
+        box-shadow: 0 0 8px 6px blue;
+    }
+    
+    .player-b {
+        background-color: rgba(255, 109, 90, 0.569);
+        border-radius: 1em;
+        transition: 0.5s;
+    }
+    
+    .player-b:hover {
+        box-shadow: 0 0 8px 6px red;
+    }
+    /* ---------------*/
+    /* match title  */
+    
+    .match-title {
+        margin: 1em 0;
+        background: rgb(131, 253, 253);
+        border-radius: 0.5em;
+        box-shadow: 0px 0px 8px 6px rgba(125, 232, 240, 0.986);
+    }
+    
+    .title {
+        margin: 0 auto;
+    }
+    
+    .meta-data {
+        margin: 0 auto;
+    }
+    
+    .bo {
+        border: 1px solid plum;
+    }
+    
+    .team-a-title {
+        color: blue;
+    }
+    
+    .team-b-title {
+        color: red;
+    }
+    /* ---------------*/
+    /* match roster*/
+    
+    .match-roster {
+        margin: 2em 0;
+        padding: 2em;
+        background: rgb(131, 253, 253);
+        border-radius: 0.5em;
+        box-shadow: 0px 0px 8px 6px rgba(125, 232, 240, 0.986);
+    }
+    
+    .team-a-roster {
+        border-top: 4px solid rgb(0, 0, 122);
+        border-bottom: 4px solid rgb(0, 0, 122);
+        padding: 0.5em;
+        border-radius: 2em;
+        background-color: rgba(92, 92, 252, 0.299);
+    }
+    
+    .team-b-roster {
+        border-top: 4px solid rgb(123, 0, 0);
+        border-bottom: 4px solid rgb(123, 0, 0);
+        padding: 0.5em;
+        border-radius: 2em;
+        background-color: rgba(252, 92, 92, 0.299);
+    }
+    
+    .my-team-roster {
+        border-top: 4px solid rgb(0, 123, 10);
+        border-bottom: 4px solid rgb(0, 123, 10);
+        padding: 0.5em;
+        border-radius: 2em;
+        background-color: rgba(92, 252, 111, 0.299);
+        min-height: 125px;
+    }
+    
+    .sub-btn {
+        align-self: center;
+    }
+    /* ---------------*/
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".active").removeClass("active");
+    });
+</script>
+<div class="macth-data-container container">
+
+    <div class="match-title text-center">
+        <div class="title row justify-content-center">
+            <div class="title-a col-3">
+                <img src={{ team_a_flag}} alt=" " class="team-a-flag" height="70px " width="70px ">
+                <span class="team-a-title" style="font-size: 20px; font-weight: bold;">{{team_a}}</span>
+            </div>
+            <div class="title-vs col-1 d-flex align-items-center">
+                <span class="vs-title" style="font-size: 20px; font-weight: bold;">VS</span>
+            </div>
+            <div class="title-b col-3">
+                <span class="team-b-title" style="font-size: 20px; font-weight: bold;">{{team_b}}</span>
+                <img src={{ team_b_flag}} alt=" " class="team-a-flag" height="70px " width="70px ">
+            </div>
+        </div>
+        <div class="meta-data row justify-content-center">
+            <span class="time col-3">{{time}}</span>
+            <span class="game col-3">{{game}}</span>
+            <span class="competation col-3">{{competation}}</span>
+        </div>
+    </div>
+
+    <div class="match-roster container">
+        <div class="roster">
+            <h3 class="font-weight-bold">Roster</h3>
+        </div>
+        <div class="roster-container row">
+            <div class="team-a col">
+                <div class="team-a-title">
+                    <h4>{{team_a}}</h4>
+                </div>
+                <div class="team-a-roster row justify-content-around">
+                    {% for player in team_a_photos %} {% for name,photo in player.items %}
+                    <div class="player-card-a-{{forloop.counter}} col-1 ply-card player-a">
+                        <img src="{{photo}}" class="img-fluid" alt="">
+                        <p class="player-name text-center">{{name}}</p>
+                    </div>
+                    {% endfor %} {% endfor %}
+                </div>
+            </div>
+            <div class="team-b col">
+                <div class="team-b-title">
+                    <h4>{{team_b}}</h4>
+                </div>
+                <div class="team-b-roster row justify-content-around">
+                    {% for player in team_b_photos %} {% for name,photo in player.items %}
+                    <div class="player-card-b-{{forloop.counter}} col-1 ply-card player-b">
+                        <img src="{{photo}}" class="img-fluid" alt="">
+                        <p class="player-name text-center">{{name}}</p>
+                    </div>
+                    {% endfor %} {% endfor %}
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="my_team">
+            <div class="my-active-team">
+                <h4>My Team</h4>
+            </div>
+            <div class="active-team my-team-roster row justify-content-around"></div>
+        </div>
+        <br>
+        <button class="btn btn-primary sub-btn" on-click="">Confirm Team</button>
+    </div>
+
+</div>
+
+<!-- {% comment %} {# this is example of passing python object to JS as json object to use in js#} {{ photos|json_script:"hello-data" }}
+
+<script>
+    const jsdata = JSON.parse(document.getElementById('hello-data').textContent);
+    console.log(jsdata);
+</script>
+{% endcomment %} -->
+
+
+<script>
+    $(".team-a-roster").on("click", "div", function() {
+        if ($(".team-a-roster").children().length > 2 && $(".active-team").children().length < 5) {
+            $(".active-team").append($(this));
+            $(this).addClass("active1");
+        }
+
+
+    });
+    $(".team-b-roster").on("click", "div", function() {
+        if ($(".team-b-roster").children().length > 2 && $(".active-team").children().length < 5) {
+            $(".active-team").append($(this));
+            $(this).addClass("active2");
+        }
+
+
+    });
+
+    $(".active-team").on("click", "div", function() {
+        if ($(this).hasClass("active1")) {
+            $(".team-a-roster").append($(this));
+            $(this).removeClass("active1");
+        } else {
+            $(".team-b-roster").append($(this));
+            $(this).removeClass("active2");
+        }
+
+    });
+</script>
+
+{% endblock content%}

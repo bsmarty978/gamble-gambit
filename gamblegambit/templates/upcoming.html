@@ -1,0 +1,58 @@
+ {% extends "base.html" %} {% block content %}
+<script>
+    $(document).ready(function() {
+        $(".active").removeClass("active");
+        $("#upcoming-tab").addClass("active");
+    });
+</script>
+<style>
+    .upcoming-match-links {
+        display: block;
+        margin: 20px;
+        background-color: rgba(125, 232, 240, 0.361);
+        box-shadow: 0px 2px 4px 3px rgba(125, 232, 240, 0.986);
+        border-radius: 10px;
+        transition: all 0.5s;
+    }
+    
+    .upcoming-match-links:hover {
+        box-shadow: 0px 6px 8px 8px rgba(93, 244, 255, 0.986);
+    }
+    
+    .bord {
+        display: flex;
+        justify-content: center;
+    }
+    
+    .match-title {
+        margin: 2px;
+    }
+    
+    .team-card {
+        background-color: rgba(125, 232, 240, 0.986);
+        border-radius: 10px;
+    }
+</style>
+<div id="upcoming-matches" class="container border">
+    {% for match in match_list %}
+
+    <a href="/create_team/{{match.title}}" id="upcoming-match-{{forloop.counter}}" class="upcoming-match-links container" style="text-decoration:none;">
+        <div class=" match-title row">
+            <div class="team-a col-5 bord team-card">
+                <img src={{ match.team_a_flag}} alt=" " class="team-a-flag" height="40px " width="40px ">
+                <span class="team-a-title">{{match.team_a}}</span>
+            </div>
+            <div class="match-vs col-2 bord">VS</div>
+            <div class="team-b col-5 bord team-card">
+                <img src={{ match.team_b_flag }} alt=" " class="team-b-flag" height="40px " width="40px ">
+                <span class="team-b-title">{{match.team_b}}</span>
+            </div>
+        </div>
+        <div class="match-meta-data row justify-content-center ">
+            <span class="time col-sm-3 ">{{match.time}}</span>
+            <span class="game col-sm-3 ">{{match.game}}</span>
+            <span class="competation col-sm-3 ">{{match.competation}}</span>
+        </div>
+    </a>
+
+    {% endfor %} {% endblock content%}

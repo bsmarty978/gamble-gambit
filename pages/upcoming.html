@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="/scss/index.css">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcoming matches</title>
+</head>
+
+<body>
+    <header>
+        <h1>GAMBLE:GAMBIT</h1>
+        <h2>Beat the game become Gambit</h2>
+    </header>
+    <div class="tabs-container">
+        <a href="/pages/upcoming.html" class="tabs-links">Upcoming</a>
+        <a href="/pages/ongoing.html" class="tabs-links">Onging</a>
+        <a href="/pages/resutls.html" class="tabs-links">Results</a>
+        <a href="/pages/stats.html" class="tabs-links">Stats</a>
+    </div>
+    <div id="myData"></div>
+    <script>
+        fetch('./exu.json')
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                appendData(data);
+            })
+            .catch(function(err) {
+                console.log('error: ' + err);
+            });
+
+        function appendData(data) {
+            var mainContainer = document.getElementById("myData");
+            for (var i = 0; i < data.length; i++) {
+                var a = document.createElement("a");
+                a.className = 'Upcoming-match';
+                a.innerHTML = 'Match_Name: ' + data[i]["title"] + '</br>' + 'time: ' + data[i]["time"] + '</br>' + 'Competation: ' + data[i]["competation"] + '</br></br>';
+                a.href = '/create_team_' + data[i]["title"];
+                mainContainer.appendChild(a);
+            }
+        }
+    </script>
+    <!-- <div id="list-container">
+        <ul>
+            <li class="match">
+                <a href="/pages/create_team.html" class="metadata">
+                    <div class="matcdata">
+                        <span class="time"> 4 hours left</span>
+                        <span class="competation">Pro league 11</span>
+                    </div>
+                    <div class="match-header">
+                        <div class="team1">team1</div>
+                        <div class="vs">VS</div>
+                        <div class="team2">team2</div>
+                    </div>
+                </a>
+            </li>
+            <li class="match">
+                <a href="/pages/create_team.html" class="metadata">
+                    <div class="matcdata">
+                        <span class="time"></span>
+                        <span class="competation"></span>
+                    </div>
+                    <div class="match-header">
+                        <div class="team1">team1</div>
+                        <div class="vs">VS</div>
+                        <div class="team2">team2</div>
+                    </div>
+                </a>
+            </li>
+            <li class="match">
+                <a href="/pages/create_team.html" class="metadata">
+                    <div class="matcdata">
+                        <span class="time"></span>
+                        <span class="competation"></span>
+                    </div>
+                    <div class="match-header">
+                        <div class="team1">team1</div>
+                        <div class="vs">VS</div>
+                        <div class="team2">team2</div>
+                    </div>
+                </a>
+            </li>
+            <li class="match">
+                <a href="/pages/create_team.html" class="metadata">
+                    <div class="matcdata">
+                        <span class="time"></span>
+                        <span class="competation"></span>
+                    </div>
+                    <div class="match-header">
+                        <div class="team1">team1</div>
+                        <div class="vs">VS</div>
+                        <div class="team2">team2</div>
+                    </div>
+                </a>
+            </li>
+            <li class="match">
+                <a href="/pages/create_team.html" class="metadata">
+                    <div class="matcdata">
+                        <span class="time"></span>
+                        <span class="competation"></span>
+                    </div>
+                    <div class="match-header">
+                        <div class="team1">team1</div>
+                        <div class="vs">VS</div>
+                        <div class="team2">team2</div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div> -->
+</body>
+
+</html>

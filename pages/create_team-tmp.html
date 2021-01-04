@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <style>
+        body {
+            text-align: center;
+        }
+        
+        .teams-container {
+            width: 50%;
+            height: 40vh;
+            padding: 2px 12px;
+            margin-bottom: 10px;
+        }
+        
+        #teams {
+            display: block;
+            width: 100%"
+
+        }
+        
+        img {
+            height: 50px;
+            width: 50px;
+        }
+        
+        #team-a {
+            background: lightcoral;
+            color: rgb(108, 38, 38);
+        }
+        
+        #team-b {
+            background: lightblue;
+            color: rgb(1, 61, 80);
+        }
+        
+        #team-active {
+            background: lightgreen;
+        }
+        
+        .player-card {
+            border: 1px solid black;
+            background: rgba(120, 90, 90, 0.507);
+        }
+        
+        .player-card:hover {
+            box-shadow: 2px 2px 5px black;
+        }
+        
+        h4 {
+            font-size: 16px;
+        }
+    </style>
+    <title>Create team</title>
+</head>
+
+<body>
+    <div id="title">
+        <h2 id="match-title"></h2>
+        <div id="match-meta-data" style="text-align: center;">
+            <h4 id="time"></h4>
+            <h4 id="game"></h4>
+            <h4 id="competation"></h4>
+        </div>
+    </div>
+    <div id="teams">
+        <div class="row">
+            <div class="roster col-7">
+                <div id="team-a" class="teams-container container">Team A</div>
+                <div id="team-b" class="teams-container container">Team B</div>
+            </div>
+            <div class="my-team col-5">
+                <div id="team-active" class="teams-container container">My Team</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        fetch('./uplistphotos.json')
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                appendData(data);
+            })
+            .catch(function(err) {
+                console.log('error: ' + err);
+            });
+
+
+        function appendData(data) {
+            var title = document.getElementById("match-title");
+            var time = document.getElementById("time");
+            var game = document.getElementById("game");
+            var competition = document.getElementById("competation");
+            var team_a = document.getElementById("team-a");
+            var team_b = document.getElementById("team-b");
+            var mainContainer = document.getElementById("teams");
+
+
+            var team1 = data[0]["roster"][data[0]["team-a"]];
+            var team2 = data[0]["roster"][data[0]["team-b"]];
+
+
+            team_a.innerHTML = data[0]["team-a"];
+            team_b.innerHTML = data[0]["team-b"];
+
+            console.log(data[0]["competation"]);
+            console.log(data[0]["roster"]);
+
+            title.innerHTML = data[0]["title"];
+            time.innerHTML = data[0]["time"];
+            game.innerHTML = data[0]["game"];
+            competition.innerHTML = data[0]["competation"];
+
+            for (var i = 0; i < team1.length; i++) {
+                var div = document.createElement("div");
+                var img = document.createElement("img");
+
+                div.className = "teams-a-player-" + i;
+                div.classList.add("player-card");
+                div.classList.add(".col-md-10");
+                div.innerHTML = team1[i];
+                team_a.appendChild(div);
+
+                img.className = "img-player-" + i;
+                img.classList.add("player-img-card");
+                img.src = data[0]["photos"][team1[i]];
+
+                div.appendChild(img);
+            }
+            for (var j = 0; j < team2.length; j++) {
+                var div = document.createElement("div");
+                var img = document.createElement("img");
+
+                div.className = "teams-b-player-" + j;
+                div.classList.add("player-card");
+                div.innerHTML = team2[j];
+                team_b.appendChild(div);
+
+                img.className = "img-player-" + j;
+                img.classList.add("player-img-card");
+                img.src = data[0]["photos"][team2[j]];
+
+                div.appendChild(img);
+            }
+
+
+            // logic for team creation
+        }
+        $("#team-a").on("click", "div", function() {
+            if ($("#team-a").children().length > 2 && $("#team-active").children().length < 5) {
+                $("#team-active").append($(this));
+                $(this).addClass("active1");
+            }
+
+
+        });
+        $("#team-b").on("click", "div", function() {
+            if ($("#team-b").children().length > 2 && $("#team-active").children().length < 5) {
+                $("#team-active").append($(this));
+                $(this).addClass("active2");
+            }
+
+
+        });
+
+        $("#team-active").on("click", "div", function() {
+            if ($(this).hasClass("active1")) {
+                $("#team-a").append($(this));
+                $(this).removeClass("active1");
+            } else {
+                $("#team-b").append($(this));
+                $(this).removeClass("active2");
+            }
+
+        });
+    </script>
+
+
+</body>
+
+</html>

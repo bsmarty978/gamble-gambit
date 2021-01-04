@@ -1,0 +1,66 @@
+a {
+  text-decoration: none;
+}
+
+body {
+  margin: 0 auto;
+  background: black;
+  font-family: myfont;
+}
+
+header {
+  margin: 0 auto;
+  height: 18vh;
+  border: 0.1px solid black;
+  text-align: center;
+  background-color: black;
+  color: #CC00FF;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+header:hover {
+  background: #CC00FF;
+  font-size: 1.1em;
+  color: black;
+}
+
+.tabs-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.tabs-links {
+  margin: 0;
+  height: 1.5em;
+  text-align: center;
+  padding: 0.5em;
+  background: #250c2b;
+  color: #CC00FF;
+  width: 100%;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.tabs-links:hover {
+  font-size: 1.1em;
+  background: #CC00FF;
+  color: black;
+}
+
+.Upcoming-match {
+  padding: 1em;
+  display: block;
+  background: black;
+  color: #CC00FF;
+  text-align: center;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.Upcoming-match:hover {
+  background: #250c2b;
+  color: #CC00FF;
+}
+/*# sourceMappingURL=index.css.map */

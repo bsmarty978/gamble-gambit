@@ -1,0 +1,133 @@
+body {
+    margin: 0 auto;
+    background: linear-gradient(45deg, rgb(1, 1, 255), darkorange);
+}
+
+a {
+    text-decoration: none;
+}
+
+#header {
+    top: 0;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 100vw;
+    height: 20vh;
+    background: linear-gradient(45deg, rgb(1, 1, 255), darkorange);
+    box-shadow: 5px 5px 10px rgb(0, 0, 55);
+    // background: linear-gradient(45deg, rgb(1, 1, 255), darkorange);
+}
+
+#main {
+    margin-top: 25vh;
+}
+
+#header-img {
+    display: block;
+    margin: auto;
+    width: 15vw;
+}
+
+#nav-bar {
+    background-color: rgba(0, 255, 200, 0.215);
+    display: flex;
+    justify-self: start;
+    align-items: center;
+    width: 100%;
+}
+
+.nav-link {
+    color: rgb(56, 38, 0);
+    text-align: center;
+    padding: auto;
+    width: 100%;
+    margin: 0;
+    height: 1.5em;
+    text-align: center;
+    padding: 0.5em;
+}
+
+#discover {
+    display: relative;
+}
+
+.abt {
+    margin: 0 1em 0;
+    text-align: center;
+    padding: 0 10em 0;
+    background-color: rgba(0, 149, 255, 0.401);
+    box-shadow: 5px 5px 10px rgb(0, 0, 55);
+    h2 {
+        font-family: myfont;
+        color: darkorange;
+        font-size: 2rem;
+    }
+}
+
+.disc-boxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 450px));
+    grid-gap: 20px;
+    justify-items: center;
+    font-size: 1rem;
+    margin: 0 1em 0;
+}
+
+.discover-box {
+    text-align: center;
+    padding: 0 2em 0;
+    margin: 0 30px 0;
+    background-color: rgba(0, 149, 255, 0.401);
+    transition: all 0.5s;
+}
+
+.discover-box:hover {
+    box-shadow: -5px 5px 10px darkorange;
+    // font-size: 1.02em;
+}
+
+#key-features {
+    display: grid;
+    margin: 2em 5em;
+    grid-area: center;
+    text-align: center;
+    background-color: rgba(0, 149, 255, 0.401);
+    box-shadow: 5px 5px 10px darkorange;
+}
+
+.vid {
+    display: flex;
+    margin: 0 auto;
+    width: 800px;
+    height: 350px;
+}
+
+@media(max-width:800px) {
+    .vid {
+        width: 100vw;
+    }
+}
+
+#video {
+    display: flex;
+    margin: 0 auto;
+    box-shadow: 5px 5px 10px orange;
+    transition: all 0.2s;
+}
+
+#video:hover {
+    width: 580px;
+    height: 335px;
+    box-shadow: -8px 8px 40px rgb(0, 149, 255), -10px 10px 50px darkorange;
+}
+
+#form {
+    display: block;
+    margin: 0 auto;
+    width: 40vw;
+    text-align: center;
+    background-color: orange;
+}

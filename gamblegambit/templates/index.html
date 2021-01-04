@@ -1,0 +1,14 @@
+{% extends "base.html" %} {% block content %}
+<script>
+    $(document).ready(function() {
+        $(".active").removeClass("active");
+        $("#home-tab").addClass("active");
+    });
+</script>
+<div class="container">
+    <div class="news"> NEWS ARTICLES</div>
+    <div class="current"> RANKING</div>
+    <div class="results"> MATCH RESULTS</div>
+</div>
+
+{% endblock content %}
