@@ -6,8 +6,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 
-f = open("uplistphotos.json",)
-match_list = json.load(f)
+import requests   #get json data from locally hosted spider 
+
+#method to get data from locally stored json file static way
+# f = open("upcominglist.json",)
+# match_list = json.load(f)
+
+#method to get json data from locally hosted spider
+r = requests.get('http://localhost:9080/crawl.json?url=https://siege.gg/matches&spider_name=upcomingm')
+match_list = (r.json())['items']
 
 
 def search_team_title(title):
