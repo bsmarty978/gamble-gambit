@@ -23,7 +23,7 @@ def search_team_title(title):
         if match["title"] == title:
             return match
     else:
-        return {"title": "Match Not Available"}
+        return None
 
 def sample(request):
     return HttpResponse("hello app is working")
@@ -34,16 +34,19 @@ def create_team(request, title):
     # print(request.user.is_authenticated)  checks user is authenicted or not
 
     match = search_team_title(title)
-    team_a_photos = []
-    team_b_photos = []
-    for player in match["photos"]:
-        if player in match["roster"][match["team_a"]]:
-            team_a_photos.append({player:match["photos"][player]})
-        else:
-            team_b_photos.append({player:match["photos"][player]})
+    if match != None:
+        team_a_photos = []
+        team_b_photos = []
+        for player in match["photos"]:
+            if player in match["roster"][match["team_a"]]:
+                team_a_photos.append({player:match["photos"][player]})
+            else:
+                team_b_photos.append({player:match["photos"][player]})
 
-    match["team_a_photos"] = team_a_photos
-    match["team_b_photos"] = team_b_photos
+        match["team_a_photos"] = team_a_photos
+        match["team_b_photos"] = team_b_photos
 
-    # return render(request,"create-team-js.html",{"match":match})
-    return render(request,"create-team.html",match)
+        # return render(request,"create-team-js.html",{"match":match})
+        return render(request,"create-team.html",match)
+    else:
+        return HttpResponse("Match is not available")
