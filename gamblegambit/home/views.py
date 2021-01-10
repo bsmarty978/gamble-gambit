@@ -62,6 +62,7 @@ for match in resp:
         break
 
 time_ob_adder(match_list)
+match_list.sort(key=lambda r:r["time_obj"]) #this inline function sort the match list acorrding to time_obj(datetime)
 
 
 @login_required(login_url='login')

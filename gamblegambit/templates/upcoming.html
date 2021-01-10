@@ -60,6 +60,7 @@
                 dat = $(this).find(".time").attr('dtutc');
                 let livedate = new Date(dat).getTime();
                 // console.log(livedate);
+
                 let now = new Date().getTime();
                 let t = livedate - now;
                 if (t > 0) {
