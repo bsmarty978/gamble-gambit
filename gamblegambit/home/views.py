@@ -13,10 +13,12 @@ import requests   #get json data from locally hosted spider
 import datetime as dt
 import dateparser
 
+from .models import Matches
+
 def str_to_datetime_convt(match_time):
     if match_time[-1] != 'Z':
         match_time = match_time + 'Z'
-    return dateparser.parse(match_time,settings={'TIMEZONE':'GMT+5:30','RETURN_AS_TIMEZONE_AWARE': False})
+    return dateparser.parse(match_time,settings={'TIMEZONE':'GMT+5:30','RETURN_AS_TIMEZONE_AWARE': True})
 
 def time_ob_adder(matches):
     for match in matches:
@@ -31,7 +33,7 @@ def time_ob_adder(matches):
 r_local = requests.get('http://localhost:9080/crawl.json?url=https://siege.gg/matches&spider_name=upcomingm')
 match_list = (r_local.json())['items']
 
-#Method To get data from API
+#Method To get data from API (CS:GO matches data)
 payload = {"Authorization" : "4p42JOzAXCi-3AqqTPfKs5ume17XCm9Kvmv6LTylSDFQxux6UHs"}
 r_api = requests.get("https://api.pandascore.co/csgo/matches/upcoming", headers = payload)
 resp = r_api.json()
@@ -64,6 +66,23 @@ for match in resp:
 time_ob_adder(match_list)
 match_list.sort(key=lambda r:r["time_obj"]) #this inline function sort the match list acorrding to time_obj(datetime)
 
+for match in match_list:
+    Matches.objects.create(
+    title = match["title"],
+    team_a = match["team_a"],
+    team_b = match["team_b"],
+    team_a_flag =match.get("team_a_flag") if match.get("team_a_flag") else "lol",
+    team_b_flag =match.get("team_b_flag") if match.get("team_b_flag") else "lol",
+    game = match["game"],
+    competation = match["competation"],
+    # country = match.get("country")
+    time = match["time"],
+    time_obj = match["time_obj"],
+    isUpcoming = True,
+    isOngoiing = False,
+    isCompleted = False,
+    result = {"re": 0}
+)
 
 @login_required(login_url='login')
 def homePage(request):
