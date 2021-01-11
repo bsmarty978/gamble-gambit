@@ -91,10 +91,26 @@
                     }
 
                     // Create Time String
-                    let time = `${days} : ${hours} : ${mins} : ${secs}`;
-                    $(this).find(".time").text("Live in : " + time);
+                    // let time = `${days}days : ${hours}hr : ${mins}min : ${secs}sec`;
+                    if (days == 0) {
+                        if (hours == 0) {
+                            if (mins == 0) {
+                                if (secs == 0) {
+                                    time = "It is Live now";
+                                } else {
+                                    time = `${secs}sec`
+                                }
+                            } else {
+                                time = ` ${mins}min : ${secs}sec`
+                            }
+                        } else {
+                            time = ` ${hours}hr : ${mins}min : ${secs}sec`
+                        }
+                    }
+                    $(this).find(".time").text("oLive in : " + time);
                     $(this).find(".time").css({
-                        "color": "red"
+                        "color": "red",
+                        'font-weight': 'bold'
                     });
                 }
             },
@@ -102,7 +118,8 @@
                 dat = $(this).find(".time").attr('dt');
                 $(this).find(".time").text(dat);
                 $(this).find(".time").css({
-                    'color': "#007bff"
+                    'color': "#007bff",
+                    'font-weight': 'normal'
                 });
             });
     </script>
