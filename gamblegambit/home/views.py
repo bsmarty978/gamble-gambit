@@ -15,74 +15,103 @@ import dateparser
 
 from .models import Matches
 
-def str_to_datetime_convt(match_time):
-    if match_time[-1] != 'Z':
-        match_time = match_time + 'Z'
-    return dateparser.parse(match_time,settings={'TIMEZONE':'GMT+5:30','RETURN_AS_TIMEZONE_AWARE': True})
+def str_to_datetime_convt(matchTime):
+    return (dateparser.parse(matchTime,settings={'RETURN_AS_TIMEZONE_AWARE': True}))
 
 def time_ob_adder(matches):
     for match in matches:
+        time = match["time"]
+        if time[-1] != 'Z':
+            match["time"] = time + ':00Z'
         match_time = str_to_datetime_convt(match["time"])
         match["time_obj"] = match_time
+        match["show_time"] = match_time.ctime()
+        print(match["title"] +"  "+match["show_time"])
 
 #method to get data from locally stored json file static way
 # f = open("upcominglist.json",)
 # match_list = json.load(f)
-
+match_list = []
 #method to get json data from locally hosted spider
-r_local = requests.get('http://localhost:9080/crawl.json?url=https://siege.gg/matches&spider_name=upcomingm')
-match_list = (r_local.json())['items']
+def local_spider_run():
+    global match_list
+    r_local = requests.get('http://localhost:9080/crawl.json?url=https://siege.gg/matches&spider_name=upcomingm')
+    match_list = (r_local.json())['items']
 
 #Method To get data from API (CS:GO matches data)
-payload = {"Authorization" : "4p42JOzAXCi-3AqqTPfKs5ume17XCm9Kvmv6LTylSDFQxux6UHs"}
-r_api = requests.get("https://api.pandascore.co/csgo/matches/upcoming", headers = payload)
-resp = r_api.json()
-i = 0
-limit = 10
-for match in resp:
-    if i<limit:
+def api_request_run():
+    global match_list
+    payload = {"Authorization" : "4p42JOzAXCi-3AqqTPfKs5ume17XCm9Kvmv6LTylSDFQxux6UHs"}
+    r_api = requests.get("https://api.pandascore.co/csgo/matches/upcoming", headers = payload)
+    resp = r_api.json()
+    i = 0
+    limit = 10
+    for match in resp:
+        if i<limit:
+            try:
+                match_dict = {}
+                teama = match["opponents"][0]["opponent"]["name"]
+                teamb = match["opponents"][1]["opponent"]["name"]
+
+                match_dict["title"] = teama + " VS " + teamb 
+                match_dict["team_a"] = teama
+                match_dict["team_b"] = teamb
+                match_dict["team_a_flag"] = match["opponents"][0]["opponent"]["image_url"]
+                match_dict["team_b_flag"] = match["opponents"][1]["opponent"]["image_url"]
+                match_dict["time"] = match["scheduled_at"]
+                match_dict["game"] = match["videogame"]["name"]
+                match_dict["competation"] = match["league"]["name"]
+
+                match_list.append(match_dict)
+                i = i+1
+            except:
+                i = i+1
+                limit = limit + 1
+        else:
+            break
+
+#uncomment after DB duplicate deletion is done
+#this method saves the matches to DB excluding the duplciation (unqiue tofather: titie, time, game)
+def match_DB_adder(match_list):
+    for match in match_list:
         try:
-            match_dict = {}
-            teama = match["opponents"][0]["opponent"]["name"]
-            teamb = match["opponents"][1]["opponent"]["name"]
-
-            match_dict["title"] = teama + " VS " + teamb 
-            match_dict["team_a"] = teama
-            match_dict["team_b"] = teamb
-            match_dict["team_a_flag"] = match["opponents"][0]["opponent"]["image_url"]
-            match_dict["team_b_flag"] = match["opponents"][1]["opponent"]["image_url"]
-            match_dict["time"] = match["scheduled_at"]
-            match_dict["game"] = match["videogame"]["name"]
-            match_dict["competation"] = match["league"]["name"]
-
-            match_list.append(match_dict)
-            i = i+1
+            Matches.objects.create(
+            title = match["title"],
+            team_a = match["team_a"],
+            team_b = match["team_b"],
+            team_a_flag =match.get("team_a_flag") if match.get("team_a_flag") else "None",
+            team_b_flag =match.get("team_b_flag") if match.get("team_b_flag") else "None",
+            game = match["game"],
+            competation = match["competation"],
+            # country = match.get("country")
+            time = match["time"],
+            time_obj = match["time_obj"],
+            isUpcoming = True,
+            isOngoiing = False,
+            isCompleted = False,
+            result = {"re": 0}
+        )
         except:
-            i = i+1
-            limit = limit + 1
-    else:
-        break
+            print("match is already in the database")
 
-time_ob_adder(match_list)
+def match_status_updater():
+    matches = Matches.objects.all().iterator()
+    for match in matches:
+        # time = dateparser.parse(match.time_obj.ctime(),settings={'RETURN_AS_TIMEZONE_AWARE': False})
+        print(match.title + " time:                       " + str(match.time_obj)+"    " + str(match.time_obj.ctime()),  str(match.time))
+        # if time - dt.datetime.now() <= 0:
+        #     print(match.title + " - is live")
+        # else:
+        #     print(match.title + " - is not live")
+
+local_spider_run()  #run local server to get data (rainbow six siege data)
+api_request_run()   #run api to get data (cs:go data)
+time_ob_adder(match_list)   #run this method to add time_obj 
 match_list.sort(key=lambda r:r["time_obj"]) #this inline function sort the match list acorrding to time_obj(datetime)
+# match_DB_adder(match_list)  #this method adds matches in DB Matches
+# match_status_updater()
 
-for match in match_list:
-    Matches.objects.create(
-    title = match["title"],
-    team_a = match["team_a"],
-    team_b = match["team_b"],
-    team_a_flag =match.get("team_a_flag") if match.get("team_a_flag") else "lol",
-    team_b_flag =match.get("team_b_flag") if match.get("team_b_flag") else "lol",
-    game = match["game"],
-    competation = match["competation"],
-    # country = match.get("country")
-    time = match["time"],
-    time_obj = match["time_obj"],
-    isUpcoming = True,
-    isOngoiing = False,
-    isCompleted = False,
-    result = {"re": 0}
-)
+
 
 @login_required(login_url='login')
 def homePage(request):
@@ -129,4 +158,5 @@ def signupPage(request):
 
 @login_required(login_url='login')
 def upcoming(request):
+
     return render(request,"upcoming.html", {'match_list':match_list})

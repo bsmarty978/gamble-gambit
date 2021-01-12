@@ -39,17 +39,21 @@
     <a href="/create_team/{{match.title}}" id="upcoming-match-{{forloop.counter}}" class="upcoming-match-links container p-1" style="text-decoration:none;">
         <div class=" match-title row">
             <div class="team-a col-5 d-flex align-items-center justify-content-center team-card">
-                <img src={{ match.team_a_flag}} alt=" " class="team-a-flag m-1" height="40px " width="40px ">
+                {%if not match.team_a_flag %}
+                <i class="material-icons" height="40px " width="40px " style="font-size:40px">sports_esports</i> {% else %}
+                <img src={{ match.team_a_flag}} alt=" " class="team-a-flag m-1" height="40px " width="40px "> {% endif %}
                 <span class="team-a-title d-flex align-items-center font-weight-bold m-1">{{match.team_a}}</span>
             </div>
             <div class="match-vs col-2 d-flex align-items-center justify-content-center font-weight-bold">VS</div>
             <div class="team-b col-5 d-flex align-items-center justify-content-center team-card">
-                <span class="team-b-title d-flex align-items-center font-weight-bold m-1">{{match.team_b}}</span>
-                <img src={{ match.team_b_flag }} alt=" " class="team-b-flag m-1" height="40px " width="40px ">
+                <span class="team-b-title d-flex align-items-center font-weight-bold m-1">{{match.team_b}}</span> {%if not match.team_b_flag %}
+                <i class="material-icons" height="40px " width="40px " style="font-size:40px">sports_esports</i> {% else %}
+                <img src={{ match.team_b_flag}} alt=" " class="team-b-flag m-1" height="40px " width="40px "> {% endif %}
+
             </div>
         </div>
         <div class="match-meta-data row justify-content-center align-items-center">
-            <span class="time col-sm-4  d-flex justify-content-center" dtutc="{{match.time}}" dt="{{match.time_obj}}">{{match.time_obj }}</span>
+            <span class="time col-sm-4  d-flex justify-content-center" dtutc="{{match.time}}" dt="{% load tz %}{{ match.time_obj|timezone:'Asia/Kolkata' }}">{% load tz %}{{ match.time_obj|timezone:"Asia/Kolkata" }}</span>
             <span class="game col-sm-2  d-flex justify-content-center">{{match.game}}</span>
             <span class="competation col-sm-4 d-flex justify-content-center">{{match.competation}}</span>
         </div>
@@ -92,23 +96,30 @@
 
                     // Create Time String
                     // let time = `${days}days : ${hours}hr : ${mins}min : ${secs}sec`;
-                    if (days == 0) {
-                        if (hours == 0) {
-                            if (mins == 0) {
-                                if (secs == 0) {
+                    if (days <= 0) {
+                        if (hours <= 0) {
+                            if (mins <= 0) {
+                                if (secs <= 0) {
                                     time = "It is Live now";
                                 } else {
-                                    time = `${secs}sec`
+                                    time = `${secs}sec`;
                                 }
                             } else {
-                                time = ` ${mins}min : ${secs}sec`
+                                time = ` ${mins}min : ${secs}sec`;
                             }
                         } else {
-                            time = ` ${hours}hr : ${mins}min : ${secs}sec`
+                            time = ` ${hours}hr : ${mins}min : ${secs}sec`;
                         }
+                    } else {
+                        time = `${days}days : ${hours}hr : ${mins}min : ${secs}sec`;
                     }
-                    time = `${days}days : ${hours}hr : ${mins}min : ${secs}sec`;
                     $(this).find(".time").text("oLive in : " + time);
+                    $(this).find(".time").css({
+                        "color": "red",
+                        'font-weight': 'bold'
+                    });
+                } else {
+                    $(this).find(".time").text("oLive now ");
                     $(this).find(".time").css({
                         "color": "red",
                         'font-weight': 'bold'

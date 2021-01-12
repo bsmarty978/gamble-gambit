@@ -27,7 +27,8 @@ class Matches(models.Model):
     isUpcoming = models.BooleanField()
     isOngoiing = models.BooleanField()
     isCompleted = models.BooleanField()
-
+    class Meta:
+        unique_together = ["title", "time", "game"]
 
 class UpcomingMatchesList(models.Model):
     pass

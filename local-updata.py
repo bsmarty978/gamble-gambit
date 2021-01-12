@@ -35,13 +35,15 @@ local_tzname = local_tz.tzname(local_now)
 print(local_tzname)
 
 ex="Sunday, January 10, 2021 15:30 GMT+5:30"
-exrp = "2021-01-10T10:00"                       #UTC time    dt.datetime.utcnow() use this method to get utc current time
+exrp = "2021-01-13T10:00Z"                       #UTC time    dt.datetime.utcnow() use this method to get utc current time
 exp = "2021-01-10T08:00:00Z" 
+
+e = "2021-01-13T10:00:00Z"
                    #Local time  dt.datetime.now()    use this method to get local current time
 def str_to_datetime_convt(match_time):
     if match_time[-1] != 'Z':
         match_time = match_time + 'Z'
-    return dateparser.parse(match_time,settings={'TIMEZONE':'GMT+5:30','RETURN_AS_TIMEZONE_AWARE': False})
+    return dateparser.parse(match_time,settings={'TIMEZONE':'GMT+5:30','RETURN_AS_TIMEZONE_AWARE': True})
 
 # new_time = dateparser.parse(exp,settings={'TIMEZONE':'GMT+5:30','RETURN_AS_TIMEZONE_AWARE': False})
 # new_time = dateparser.parse("4 hours ago")
@@ -51,7 +53,8 @@ print(dt.datetime.now().ctime())
 print(dt.datetime.utcnow().ctime())
 # print(new_time-dt.datetime.now()) 
 
-
+new = dateparser.parse(exrp,settings={'TIMEZONE':'GMT+5:30','RETURN_AS_TIMEZONE_AWARE': True})
+print(new)
 
 # from datetime import datetime
 # from dateutil import tz
