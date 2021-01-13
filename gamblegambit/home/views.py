@@ -14,6 +14,9 @@ import datetime as dt
 import dateparser
 
 from .models import Matches
+from django.db.utils import IntegrityError
+
+from django.utils import timezone
 
 def str_to_datetime_convt(matchTime):
     return (dateparser.parse(matchTime,settings={'RETURN_AS_TIMEZONE_AWARE': True}))
@@ -25,8 +28,11 @@ def time_ob_adder(matches):
             match["time"] = time + ':00Z'
         match_time = str_to_datetime_convt(match["time"])
         match["time_obj"] = match_time
-        match["show_time"] = match_time.ctime()
-        print(match["title"] +"  "+match["show_time"])
+        
+
+        #DEBUG : match time and timzone checking
+        # match["show_time"] = match_time.ctime()
+        # print(match["title"] +"  "+match["show_time"]) 
 
 #method to get data from locally stored json file static way
 # f = open("upcominglist.json",)
@@ -91,25 +97,29 @@ def match_DB_adder(match_list):
             isCompleted = False,
             result = {"re": 0}
         )
+        except IntegrityError:
+            print(match["title"]+"  is already in the database")
+        
         except:
-            print("match is already in the database")
+            print(match["title"]+ " Unexpected error")
 
 def match_status_updater():
     matches = Matches.objects.all().iterator()
     for match in matches:
         # time = dateparser.parse(match.time_obj.ctime(),settings={'RETURN_AS_TIMEZONE_AWARE': False})
-        print(match.title + " time:                       " + str(match.time_obj)+"    " + str(match.time_obj.ctime()),  str(match.time))
-        # if time - dt.datetime.now() <= 0:
-        #     print(match.title + " - is live")
-        # else:
-        #     print(match.title + " - is not live")
+        con = match.time_obj.timestamp()-timezone.now().timestamp()
+        if con <= 0:
+            print(match.title + " is live")
+            match.isUpcoming = False
+            match.isOngoiing = True
+            match.save()
 
 local_spider_run()  #run local server to get data (rainbow six siege data)
 api_request_run()   #run api to get data (cs:go data)
 time_ob_adder(match_list)   #run this method to add time_obj 
 match_list.sort(key=lambda r:r["time_obj"]) #this inline function sort the match list acorrding to time_obj(datetime)
 # match_DB_adder(match_list)  #this method adds matches in DB Matches
-# match_status_updater()
+match_status_updater()
 
 
 
@@ -158,5 +168,4 @@ def signupPage(request):
 
 @login_required(login_url='login')
 def upcoming(request):
-
     return render(request,"upcoming.html", {'match_list':match_list})
