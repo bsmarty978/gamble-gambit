@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.forms import inlineformset_factory
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
-import json
+# import json
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -10,7 +10,7 @@ from .forms import CreateUserForm
 
 import requests   #get json data from locally hosted spider 
 
-import datetime as dt
+# import datetime as dt
 import dateparser
 
 from .models import Matches
@@ -47,6 +47,7 @@ def local_spider_run():
 #Method To get data from API (CS:GO matches data)
 def api_request_run():
     global match_list
+    resp = []
     payload = {"Authorization" : "4p42JOzAXCi-3AqqTPfKs5ume17XCm9Kvmv6LTylSDFQxux6UHs"}
     r_api = requests.get("https://api.pandascore.co/csgo/matches/upcoming", headers = payload)
     resp = r_api.json()
@@ -87,6 +88,7 @@ def match_DB_adder(match_list):
             team_b = match["team_b"],
             team_a_flag =match.get("team_a_flag") if match.get("team_a_flag") else "None",
             team_b_flag =match.get("team_b_flag") if match.get("team_b_flag") else "None",
+            roster = match.get("roster") if match.get("roster") else "None",
             game = match["game"],
             competation = match["competation"],
             # country = match.get("country")
@@ -95,7 +97,8 @@ def match_DB_adder(match_list):
             isUpcoming = True,
             isOngoiing = False,
             isCompleted = False,
-            result = {"re": 0}
+            result = match.get("result") if match.get("result") else "None",
+            photos = match.get("photos") if match.get("photos") else "None"
         )
         except IntegrityError:
             print(match["title"]+"  is already in the database")
@@ -118,7 +121,7 @@ local_spider_run()  #run local server to get data (rainbow six siege data)
 api_request_run()   #run api to get data (cs:go data)
 time_ob_adder(match_list)   #run this method to add time_obj 
 match_list.sort(key=lambda r:r["time_obj"]) #this inline function sort the match list acorrding to time_obj(datetime)
-# match_DB_adder(match_list)  #this method adds matches in DB Matches
+match_DB_adder(match_list)  #this method adds matches in DB Matches
 match_status_updater()
 
 
