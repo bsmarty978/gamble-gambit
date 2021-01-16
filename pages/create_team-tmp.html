@@ -44,7 +44,7 @@
         }
         
         .player-card {
-            border: 1px solid black;
+            /* border: 1px solid black; */
             background: rgba(120, 90, 90, 0.507);
         }
         
@@ -103,20 +103,20 @@
             var mainContainer = document.getElementById("teams");
 
 
-            var team1 = data[0]["roster"][data[0]["team-a"]];
-            var team2 = data[0]["roster"][data[0]["team-b"]];
+            var team1 = data[1]["roster"][data[1]["team-a"]];
+            var team2 = data[1]["roster"][data[1]["team-b"]];
 
 
-            team_a.innerHTML = data[0]["team-a"];
-            team_b.innerHTML = data[0]["team-b"];
+            team_a.innerHTML = data[1]["team-a"];
+            team_b.innerHTML = data[1]["team-b"];
 
-            console.log(data[0]["competation"]);
-            console.log(data[0]["roster"]);
+            console.log(data[1]["competation"]);
+            console.log(data[1]["roster"]);
 
-            title.innerHTML = data[0]["title"];
-            time.innerHTML = data[0]["time"];
-            game.innerHTML = data[0]["game"];
-            competition.innerHTML = data[0]["competation"];
+            title.innerHTML = data[1]["title"];
+            time.innerHTML = data[1]["time"];
+            game.innerHTML = data[1]["game"];
+            competition.innerHTML = data[1]["competation"];
 
             for (var i = 0; i < team1.length; i++) {
                 var div = document.createElement("div");
@@ -124,13 +124,14 @@
 
                 div.className = "teams-a-player-" + i;
                 div.classList.add("player-card");
+                div.classList.add("a-player");
                 div.classList.add(".col-md-10");
                 div.innerHTML = team1[i];
                 team_a.appendChild(div);
 
                 img.className = "img-player-" + i;
                 img.classList.add("player-img-card");
-                img.src = data[0]["photos"][team1[i]];
+                img.src = data[1]["photos"][team1[i]];
 
                 div.appendChild(img);
             }
@@ -140,12 +141,14 @@
 
                 div.className = "teams-b-player-" + j;
                 div.classList.add("player-card");
+                div.classList.add("b-player");
+                div.classList.add(".col-md-10");
                 div.innerHTML = team2[j];
                 team_b.appendChild(div);
 
                 img.className = "img-player-" + j;
                 img.classList.add("player-img-card");
-                img.src = data[0]["photos"][team2[j]];
+                img.src = data[1]["photos"][team2[j]];
 
                 div.appendChild(img);
             }
@@ -154,7 +157,7 @@
             // logic for team creation
         }
         $("#team-a").on("click", "div", function() {
-            if ($("#team-a").children().length > 2 && $("#team-active").children().length < 5) {
+            if ($("#team-active").children(".a-player").length < 3 && $("#team-active").children().length < 5) {
                 $("#team-active").append($(this));
                 $(this).addClass("active1");
             }
@@ -162,7 +165,7 @@
 
         });
         $("#team-b").on("click", "div", function() {
-            if ($("#team-b").children().length > 2 && $("#team-active").children().length < 5) {
+            if ($("#team-active").children(".b-player").length < 3 && $("#team-active").children().length < 5) {
                 $("#team-active").append($(this));
                 $(this).addClass("active2");
             }

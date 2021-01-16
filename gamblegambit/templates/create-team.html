@@ -1,4 +1,5 @@
 {% extends "base.html"%} {% block content %}
+<script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 <style>
     /* player card style */
     
@@ -25,6 +26,29 @@
     
     .player-b:hover {
         box-shadow: 0 0 8px 6px red;
+    }
+    
+    .player-dis {
+        background-color: rgba(60, 45, 43, 0.569);
+        transition: 0.5s;
+    }
+    
+    .player-dis:hover {
+        box-shadow: 0 0 8px 6px rgb(123, 119, 119);
+    }
+    
+    .cap-hover {
+        transition: 0.5s;
+    }
+    
+    .cap-hover:hover {
+        /* color: yellow; */
+        background: rgba(250, 250, 129, 0.667);
+        box-shadow: 0 0 8px 6px rgb(255, 251, 1);
+    }
+    
+    .cap-active {
+        color: yellow;
     }
     /* ---------------*/
     /* match title  */
@@ -161,15 +185,15 @@
         <br>
         <div class="my_team">
             <div class="my-active-team">
-                <h4>My Team</h4>
+                <h4 id="demo">My Team</h4>
             </div>
             <div class="active-team my-team-roster row justify-content-around"></div>
         </div>
         <br/>
         <div class="buttons-con d-flex justify-content-around">
-            <button class="btn btn-primary" on-click="">Select Captain</button>
-            <button class="btn btn-primary" on-click="">Reset Team</button>
-            <button class="btn btn-primary" on-click="">Confirm Team</button>
+            <button class="btn btn-primary mtm" onclick="capSeletor()">Select Captain</button>
+            <button class="btn btn-primary" onclick="capDeseletor()">Reset Team</button>
+            <button class="btn btn-primary" onclick="">Confirm Team</button>
         </div>
     </div>
 
@@ -185,33 +209,93 @@
 
 
 <script>
+    capState();
+
+    function capState() {
+        if ($(".active-team").children().length == 5) {
+            $(".mtm").attr("disabled", false);
+        } else {
+            $(".mtm").attr("disabled", true);
+        }
+    }
     $(".team-a-roster").on("click", "div", function() {
-        if ($(".team-a-roster").children().length > 2 && $(".active-team").children().length < 5) {
+        if ($(".active-team").children(".player-a").length < 3 && $(".active-team").children().length < 5) {
+            $(".team-a-roster").children(".player-a").removeClass("player-dis");
             $(".active-team").append($(this));
             $(this).addClass("active1");
+        } else {
+            $(".team-a-roster").children(".player-a").addClass("player-dis");
         }
-
+        capState();
 
     });
     $(".team-b-roster").on("click", "div", function() {
-        if ($(".team-b-roster").children().length > 2 && $(".active-team").children().length < 5) {
+        if ($(".active-team").children(".player-b").length < 3 && $(".active-team").children().length < 5) {
+            $(".team-b-roster").children(".player-b").removeClass("player-dis");
             $(".active-team").append($(this));
             $(this).addClass("active2");
+        } else {
+            $(".team-b-roster").children(".player-b").addClass("player-dis");
         }
-
-
+        capState();
     });
 
-    $(".active-team").on("click", "div", function() {
+    function activeTeamToggle() {
         if ($(this).hasClass("active1")) {
+            $(".team-a-roster").children(".player-a").removeClass("player-dis");
             $(".team-a-roster").append($(this));
             $(this).removeClass("active1");
+            $(this).children(".player-name").children(".iconify").remove();
+            $(this).children(".player-name").css("color", "black");
         } else {
+            $(".team-b-roster").children(".player-b").removeClass("player-dis");
             $(".team-b-roster").append($(this));
             $(this).removeClass("active2");
+            $(this).children(".player-name").children(".iconify").remove();
+            $(this).children(".player-name").css("color", "black");
+        }
+        capState();
+    };
+
+    $(".active-team").on("click", "div", activeTeamToggle);
+</script>
+<script>
+    // $(".mtm").toggle(
+    //     function() {},
+    //     function() {}
+    // )
+
+    function selectCap() {
+        if ($(this).children(".player-name").children().length == 0) {
+            $(this).children(".player-name").append('<span class="iconify" data-icon="fa-solid:crown"></span>');
+            $(".cap-active").parent().css("color", "black");
+            $(".cap-active").remove();
+            $(this).children(".player-name").css("color", "yellow");
+            $(this).children(".player-name").children(".iconify").addClass('cap-active');
         }
 
-    });
-</script>
+    }
 
+    function capSeletor() {
+        console.log("Hand");
+        $(".active-team").off("click", "div", activeTeamToggle);
+        $(".active-team").on("click", "div", selectCap);
+        $(".mtm").attr("onclick", "capDeseletor()");
+        $(".active-team").children(".ply-card").addClass("cap-hover");
+        $(".mtm").text("Change players");
+
+    }
+
+    // document.getElementById("demo").innerHTML = "Hello World";
+    // $(".team-a-roster").unbind("click");
+
+    function capDeseletor() {
+        console.log("Hands OFF");
+        $(".active-team").on("click", "div", activeTeamToggle);
+        $(".active-team").off("click", "div", selectCap);
+        $(".mtm").attr("onclick", "capSeletor()");
+        $(".active-team").children(".ply-card").removeClass("cap-hover");
+        $(".mtm").text("Select Captain");
+    }
+</script>
 {% endblock content%}
