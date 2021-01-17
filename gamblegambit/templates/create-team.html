@@ -54,18 +54,19 @@
     /* match title  */
     
     .match-title {
-        margin: 1em 0;
+        /* margin: 1em 0; */
         background: rgb(131, 253, 253);
         border-radius: 0.5em;
         box-shadow: 0px 0px 8px 6px rgba(125, 232, 240, 0.986);
     }
-    
-    .title {
+    /* .title {
         margin: 0 auto;
-    }
+    } */
     
     .meta-data {
-        margin: 0 auto;
+        border-radius: 1em;
+        box-shadow: 0px 0px 8px 6px rgba(125, 232, 240, 0.986);
+        font-weight: bold;
     }
     
     .bo {
@@ -82,9 +83,39 @@
     /* ---------------*/
     /* match roster*/
     
+    .title-a {
+        box-shadow: -5px 0px 8px 6px rgba(90, 98, 255, 0.569);
+        /* background-color: rgba(90, 98, 255, 0.569); */
+        transition: 0.5s;
+        border-radius: 1em;
+    }
+    /* .title-a:hover {
+        /* box-shadow: none; */
+    /* background-color: rgba(90, 98, 255, 0.569); */
+    /* border-radius: 1em; */
+    /* } */
+    
+    .title-b {
+        box-shadow: 5px 0px 8px 6px rgba(255, 90, 90, 0.569);
+        /* background-color: rgba(255, 90, 90, 0.569); */
+        transition: 0.5s;
+        border-radius: 1em;
+    }
+    /* .title-b:hover {
+        /* box-shadow: none;
+        /* background-color: rgba(255, 90, 90, 0.569); */
+    /* border-radius: 1em; */
+    /* }  */
+    
+    .roster {
+        text-decoration: none;
+        /* text-align: start; */
+    }
+    
     .match-roster {
         margin: 2em 0;
         padding: 2em;
+        /* text-align: center; */
         background: rgb(131, 253, 253);
         border-radius: 0.5em;
         box-shadow: 0px 0px 8px 6px rgba(125, 232, 240, 0.986);
@@ -129,41 +160,42 @@
 </script>
 <div class="macth-data-container container">
 
-    <div class="match-title text-center">
-        <div class="title row justify-content-center">
-            <div class="title-a col-3">
-                <img src={{ team_a_flag}} alt=" " class="team-a-flag" height="70px " width="70px ">
-                <span class="team-a-title" style="font-size: 20px; font-weight: bold;">{{team_a}}</span>
+    <div class="match-title my-3 py-2 text-center container">
+        <div class="title  row justify-content-around align-items-center">
+            <div class="title-a m-1 col-4">
+                <img src={{team_a_flag}} alt=" " class="team-a-flag mx-2" height="70px " width="70px ">
+                <span class="team-a-title " style="font-size: 20px; font-weight: bold;">{{team_a}}</span>
             </div>
-            <div class="title-vs col-1 d-flex align-items-center">
-                <span class="vs-title" style="font-size: 20px; font-weight: bold;">VS</span>
+            <div class="title-vs m-1 col-1 d-flex justify-content-center align-items-center">
+                <span class="vs-title" style="font-size: 30px; font-weight: bold; color:rgb(123, 0, 0);">VS</span>
             </div>
-            <div class="title-b col-3">
-                <span class="team-b-title" style="font-size: 20px; font-weight: bold;">{{team_b}}</span>
-                <img src={{ team_b_flag}} alt=" " class="team-a-flag" height="70px " width="70px ">
+            <div class="title-b m-1 col-4">
+                <span class="team-b-title " style="font-size: 20px; font-weight: bold;">{{team_b}}</span>
+                <img src={{team_b_flag}} alt=" " class="team-b-flag mx-2" height="70px " width="70px ">
             </div>
         </div>
-        <div class="meta-data row justify-content-center">
-            <span class="time col-3">{{time}}</span>
-            <span class="game col-3">{{game}}</span>
-            <span class="competation col-3">{{competation}}</span>
+
+        <div class="meta-data row justify-content-center align-items-center my-2 py-2">
+            <span class="time col-4 d-flex justify-content-center align-items-center">{% load tz %}{{ time_obj|timezone:"Asia/Kolkata" }}</span>
+            <span class="game col-2 d-flex justify-content-center align-items-center">{{game}}</span>
+            <span class="competation col-4 d-flex justify-content-center align-items-center">{{competation}}</span>
         </div>
     </div>
 
-    <div class="match-roster container">
+    <div class="match-roster container text-center">
         <div class="roster">
             <h3 class="font-weight-bold">Roster</h3>
         </div>
-        <div class="roster-container row">
+        <div class="roster-container row justify-content-between">
             <div class="team-a col">
                 <div class="team-a-title">
                     <h4>{{team_a}}</h4>
                 </div>
                 <div class="team-a-roster row justify-content-around">
                     {% for player in team_a_photos %} {% for name,photo in player.items %}
-                    <div class="player-card-a-{{forloop.counter}} col-1 ply-card player-a">
-                        <img src="{{photo}}" class="img-fluid" alt="">
-                        <p class="player-name text-center">{{name}}</p>
+                    <div class="player-card-a-{{forloop.counter}} col-1 ply-card player-a m-1  d-flex flex-column justify-content-center align-items-center">
+                        <img src="{{photo}}" class="img-fluid " alt="">
+                        <p class="player-name text-center ">{{name}}</p>
                     </div>
                     {% endfor %} {% endfor %}
                 </div>
@@ -174,9 +206,9 @@
                 </div>
                 <div class="team-b-roster row justify-content-around">
                     {% for player in team_b_photos %} {% for name,photo in player.items %}
-                    <div class="player-card-b-{{forloop.counter}} col-1 ply-card player-b">
-                        <img src="{{photo}}" class="img-fluid" alt="">
-                        <p class="player-name text-center">{{name}}</p>
+                    <div class="player-card-b-{{forloop.counter}} col-1 ply-card player-b m-1 d-flex flex-column justify-content-center align-items-center">
+                        <img src="{{photo}}" class="img-fluid " alt="">
+                        <p class="player-name text-center ">{{name}}</p>
                     </div>
                     {% endfor %} {% endfor %}
                 </div>
@@ -191,9 +223,14 @@
         </div>
         <br/>
         <div class="buttons-con d-flex justify-content-around">
-            <button class="btn btn-primary mtm" onclick="capSeletor()">Select Captain</button>
-            <button class="btn btn-primary" onclick="capDeseletor()">Reset Team</button>
-            <button class="btn btn-primary" onclick="">Confirm Team</button>
+            <button class="btn btn-warning capToteam justify-content-center p-1" onclick="capSeletor()">
+                <span class="iconify" data-icon="jam:crown-f" style="font-size:1.5rem;"></span>
+                <strong>Select Captain</strong> 
+            </button>
+            <button class="btn btn-danger conformTeam justify-content-center" onclick="">
+                <span class="iconify" data-icon="fa-brands:font-awesome-alt" style="font-size:1.5rem;"></span>
+                <strong>Confirm Team</strong>
+            </button>
         </div>
     </div>
 
@@ -213,9 +250,19 @@
 
     function capState() {
         if ($(".active-team").children().length == 5) {
-            $(".mtm").attr("disabled", false);
+            $(".capToteam").attr("disabled", false);
         } else {
-            $(".mtm").attr("disabled", true);
+            $(".capToteam").attr("disabled", true);
+        }
+
+        if ($(".active-team").children().length == 5 && $(".active-team").children().hasClass("active-captain")) {
+            $(".conformTeam").attr("disabled", false);
+            $(".conformTeam").addClass("btn-success");
+            $(".conformTeam").removeClass("btn-danger");
+        } else {
+            $(".conformTeam").attr("disabled", true);
+            $(".conformTeam").addClass("btn-danger");
+            $(".conformTeam").removeClass("btn-success");
         }
     }
     $(".team-a-roster").on("click", "div", function() {
@@ -245,13 +292,15 @@
             $(".team-a-roster").children(".player-a").removeClass("player-dis");
             $(".team-a-roster").append($(this));
             $(this).removeClass("active1");
-            $(this).children(".player-name").children(".iconify").remove();
+            $(this).removeClass("active-captain");
+            $(this).children(".iconify").remove();
             $(this).children(".player-name").css("color", "black");
         } else {
             $(".team-b-roster").children(".player-b").removeClass("player-dis");
             $(".team-b-roster").append($(this));
             $(this).removeClass("active2");
-            $(this).children(".player-name").children(".iconify").remove();
+            $(this).removeClass("active-captain");
+            $(this).children(".iconify").remove();
             $(this).children(".player-name").css("color", "black");
         }
         capState();
@@ -260,29 +309,36 @@
     $(".active-team").on("click", "div", activeTeamToggle);
 </script>
 <script>
-    // $(".mtm").toggle(
+    // $(".capToteam").toggle(
     //     function() {},
     //     function() {}
     // )
 
     function selectCap() {
-        if ($(this).children(".player-name").children().length == 0) {
-            $(this).children(".player-name").append('<span class="iconify" data-icon="fa-solid:crown"></span>');
-            $(".cap-active").parent().css("color", "black");
+        if ($(this).children().length == 2) {
+            $(".active-captain").removeClass("active-captain");
+            $(this).addClass("active-captain");
+            $(this).append('<iconify-icon data-icon="jam-crown" class="iconify" style="font-size: 2rem;"></iconify-icon>');
+            $(".active-team").children().css("color", "black");
             $(".cap-active").remove();
-            $(this).children(".player-name").css("color", "yellow");
-            $(this).children(".player-name").children(".iconify").addClass('cap-active');
+            $(this).css("color", "yellow");
+            $(this).children(".iconify").addClass('cap-active');
         }
-
+        capState();
     }
 
     function capSeletor() {
         console.log("Hand");
         $(".active-team").off("click", "div", activeTeamToggle);
         $(".active-team").on("click", "div", selectCap);
-        $(".mtm").attr("onclick", "capDeseletor()");
+        $(".capToteam").attr("onclick", "capDeseletor()");
+        $(".capToteam").removeClass("btn-warning");
+        $(".capToteam").addClass("btn-info");
         $(".active-team").children(".ply-card").addClass("cap-hover");
-        $(".mtm").text("Change players");
+        $(".capToteam").text("Change players");
+        $(".capToteam").text("");
+        $(".capToteam").append('<span class="iconify" data-icon="fluent:people-team-add-20-filled" style="font-size:1.5rem;"></span>');
+        $(".capToteam").append("Change players");
 
     }
 
@@ -293,9 +349,14 @@
         console.log("Hands OFF");
         $(".active-team").on("click", "div", activeTeamToggle);
         $(".active-team").off("click", "div", selectCap);
-        $(".mtm").attr("onclick", "capSeletor()");
+        $(".capToteam").attr("onclick", "capSeletor()");
+        $(".capToteam").addClass("btn-warning");
+        $(".capToteam").removeClass("btn-info");
         $(".active-team").children(".ply-card").removeClass("cap-hover");
-        $(".mtm").text("Select Captain");
+        $(".capToteam").text("");
+        $(".capToteam").append('<span class="iconify" data-icon="jam:crown-f" style="font-size:1.5rem;"></span>');
+        $(".capToteam").append("Select Captain");
+
     }
 </script>
 {% endblock content%}
