@@ -23,9 +23,13 @@ class Matches(models.Model):
     # team_a_photos = models.JSONField()
     # team_b_photos = models.JSONField()
     # country = models.CharField(max_length=20, blank=True, null=True)
+    team_a_photos = models.JSONField(blank=True, null=True)
+    team_b_photos = models.JSONField(blank=True, null=True)
     roster = models.JSONField(blank=True, null=True)
     result = models.JSONField(blank=True, null=True)
     photos = models.JSONField(blank=True, null=True)
+    score_a = models.FloatField(blank=True, null=True)
+    score_b = models.FloatField(blank=True, null=True)
     isUpcoming = models.BooleanField()
     isOngoiing = models.BooleanField()
     isCompleted = models.BooleanField()
@@ -34,3 +38,14 @@ class Matches(models.Model):
 
     def __str__(self):
         return self.title
+
+class MyTeam(models.Model):
+    match = models.ForeignKey(Matches, on_delete=models.CASCADE)
+    username = models.CharField(max_length=10)
+    user_captain = models.CharField(max_length=10)
+    user_roster = models.JSONField()
+    class Meta:
+        unique_together = ["match", "username"]
+    def __str__(self):
+        display = f"{self.username}:{self.match.title}"
+        return display

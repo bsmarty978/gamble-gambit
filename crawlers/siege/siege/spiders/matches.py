@@ -16,7 +16,7 @@ class MatchesSpider(CrawlSpider):
 
     rules = (
         Rule(LinkExtractor(restrict_xpaths="//div[@id='results']/a"), callback='parse_item', follow=True, process_request='set_user_agent'), #for every match
-        Rule(LinkExtractor(restrict_xpaths="//a[@rel='next']"), process_request='set_user_agent'),    #for next page
+        # Rule(LinkExtractor(restrict_xpaths="//a[@rel='next']"), process_request='set_user_agent'),    #for next page
     )
 
     def set_user_agent(self, request):
@@ -26,10 +26,11 @@ class MatchesSpider(CrawlSpider):
     def parse_item(self, response):
         team1 = response.xpath("normalize-space(//div[@class='h1 pg-title impact__title mb-3']/text())").get() #team 1 data left side
         team2 = response.xpath("normalize-space(//div[@class='h1 pg-title impact__title mb-3']/text()[2])").get() #team2 data rigt side
-
+        team1_flag = response.xpath("(//div[@class='match__overview-lower']//img)[1]/@src").get()
+        team2_flag = response.xpath("(//div[@class='match__overview-lower']//img)[2]/@src").get()
         result_1 = response.xpath("normalize-space((//div[@class='match__overview-lower'])[1]/div/text())").get() #left 
         result_2 = response.xpath("normalize-space((//div[@class='match__overview-lower'])[2]/div/text())").get() #right
-
+        photos = {}
         #stats_cond = response.xpath("normalize-space(//div[@class='alert alert-default small']/text())").get()
         #(//h2[@class = 'mb-0']/following-sibling::node())[2] --  player stats emtpy direct 
         stats_cond = response.xpath("normalize-space(//div[@class='row row--padded match__player-stats']/div/div/text())").get() # this condition checks in player stasts table for No player stats data string
@@ -55,21 +56,32 @@ class MatchesSpider(CrawlSpider):
         else: #if no stats data available
             stat_dict = stats_cond
 
+        photo_roster = response.xpath("//div[@class='roster__player']")
+
+        for player in photo_roster:
+            name = player.xpath("normalize-space(.//h5/text())").get()
+            photo = player.xpath(".//img[@class='player__photo__img img-fluid']/@src").get()
+            photos[name] = photo
         #match meta data and stats combined
         yield{
             'title': team1 + ' vs ' +  team2,
             'title_result': team1 + ' ' + result_1 + ' vs ' + result_2 + ' ' + team2,
-            'team-a': team1,
-            'team-b': team2,
+            'team_a': team1,
+            'team_b': team2,
+            'team_a_flag': team1_flag,
+            'team_b_flag': team2_flag,
             'game' : "Rainbow Six Siege",
+            'result_a':result_1,
+            'result_b':result_2,
             'result': result_1 + ' ' + result_2,
             'competation' : response.xpath("normalize-space(//span[@class='meta__item meta__competition']/a/text())").get(),
-            'time' : response.xpath("normalize-space(//div[@class='entry__meta']/time/text())").get(),
+            'time' : response.xpath("//div[@class='entry__meta']/time/@datetime").get(),
             'country' : response.xpath("normalize-space(//span[@class='mr-1']/text())").get(),
             'roster' : {
                 team1 : response.xpath("//div[@class='col-12 col-md match__roster team--a']//h5/text()").getall(),
                 team2 : response.xpath("//div[@class='col-12 col-md match__roster team--b']//h5/text()").getall()
             },
-            'stats': stat_list
+            'stats': stat_list,
+            "photos" : photos 
         }
 

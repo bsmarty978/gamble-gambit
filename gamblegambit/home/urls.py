@@ -7,5 +7,5 @@ urlpatterns =[
     path('login',views.loginPage,name="login"),
     path('logout',views.logoutUserPage,name="logout"),
     path('signup',views.signupPage,name="signup"),
-    path('upcoming',views.upcoming,name="upcoming"),
+    # path('upcoming',views.upcoming,name="upcoming"), #NOTE: this methid added to create team APP.
 ]

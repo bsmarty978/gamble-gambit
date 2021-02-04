@@ -116,13 +116,13 @@ def match_status_updater():
             match.isUpcoming = False
             match.isOngoiing = True
             match.save()
-
-local_spider_run()  #run local server to get data (rainbow six siege data)
-api_request_run()   #run api to get data (cs:go data)
-time_ob_adder(match_list)   #run this method to add time_obj 
-match_list.sort(key=lambda r:r["time_obj"]) #this inline function sort the match list acorrding to time_obj(datetime)
-match_DB_adder(match_list)  #this method adds matches in DB Matches
-match_status_updater()
+#NOTE: upcoming method added to create team app.
+# local_spider_run()  #run local server to get data (rainbow six siege data)
+# api_request_run()   #run api to get data (cs:go data)
+# time_ob_adder(match_list)   #run this method to add time_obj 
+# match_list.sort(key=lambda r:r["time_obj"]) #this inline function sort the match list acorrding to time_obj(datetime)
+# match_DB_adder(match_list)  #this method adds matches in DB Matches
+# match_status_updater()
 
 
 
@@ -169,6 +169,17 @@ def signupPage(request):
         context ={"form":form}
         return render(request,"signup.html",context) 
 
-@login_required(login_url='login')
-def upcoming(request):
-    return render(request,"upcoming.html", {'match_list':match_list})
+
+# NOTE:::this method added in create_team app
+# @login_required(login_url='login')
+# def upcoming(request):
+#     con =  match_list[0]["time_obj"].timestamp()-timezone.now().timestamp()
+#     if con <= 0:
+#         local_spider_run()  #run local server to get data (rainbow six siege data)
+#         api_request_run()   #run api to get data (cs:go data)
+#         time_ob_adder(match_list)   #run this method to add time_obj 
+#         match_list.sort(key=lambda r:r["time_obj"]) #this inline function sort the match list acorrding to time_obj(datetime)
+#         match_DB_adder(match_list)  #this method adds matches in DB Matches
+#         match_status_updater()
+
+#     return render(request,"upcoming.html", {'match_list':match_list})

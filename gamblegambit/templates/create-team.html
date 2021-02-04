@@ -219,7 +219,9 @@
             <div class="my-active-team">
                 <h4 id="demo">My Team</h4>
             </div>
+
             <div class="active-team my-team-roster row justify-content-around"></div>
+
         </div>
         <br/>
         <div class="buttons-con d-flex justify-content-around">
@@ -227,10 +229,11 @@
                 <span class="iconify" data-icon="jam:crown-f" style="font-size:1.5rem;"></span>
                 <strong>Select Captain</strong> 
             </button>
-            <button class="btn btn-danger conformTeam justify-content-center" onclick="">
+            <button class="btn btn-danger conformTeam justify-content-center" onclick="confirmedTeam()">
                 <span class="iconify" data-icon="fa-brands:font-awesome-alt" style="font-size:1.5rem;"></span>
                 <strong>Confirm Team</strong>
             </button>
+
         </div>
     </div>
 
@@ -244,7 +247,7 @@
 </script>
 {% endcomment %} -->
 
-
+{{ title|json_script:"match-title-json" }}
 <script>
     capState();
 
@@ -357,6 +360,91 @@
         $(".capToteam").append('<span class="iconify" data-icon="jam:crown-f" style="font-size:1.5rem;"></span>');
         $(".capToteam").append("Select Captain");
 
+    }
+    String.prototype.killWhiteSpace = function() {
+        return this.replace(/\s/g, '');
+    };
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    function confirmedTeam() {
+        console.log("confirmedTeam");
+        let my_cap = $(".active-team").children(".active-captain").text().killWhiteSpace();
+        let data_obj = $(".active-team").children();
+        // for (const data in data_obj) {
+        //     console.log(data_obj(data));
+        // }
+        var my_roster = [];
+        for (i = 0; i < 5; i++) {
+            my_roster.push($(data_obj[i]).text().killWhiteSpace());
+        }
+        let bohtml = $(".macth-data-container").html();
+        // const jsdata = JSON.parse(document.getElementById('hello-data').textContent);
+        const title = JSON.parse(document.getElementById('match-title-json').textContent);
+        console.log(title);
+        var my_team = {
+            "my_cap": my_cap,
+            "my_roster": my_roster,
+            // "state": bohtml
+            "title": title
+        }
+        console.log(my_team);
+        // console.log(bohtml);
+        // $.ajax({
+        //     type: "POST",
+        //     url: request,
+        //     my_team,
+        //     success: function() {
+        //         $('#message').html("<h2>my team Form Submitted!</h2>")
+        //     }
+        // });
+        // return false; //<---- move it here
+
+        const csrftoken = getCookie('csrftoken');
+        console.log(csrftoken);
+        url = encodeURI(`/matches/${title}/myteam/`);
+        // $.post(url, headers: {
+        //     'X-CSRFToken': csrftoken
+        // }, my_team);
+        $.ajax({
+            url: url,
+            type: 'post',
+            data: my_team,
+            headers: {
+                'X-CSRFToken': csrftoken //If your header name has spaces or any other char not appropriate
+                    //for object property name, use quoted notation shown in second
+            },
+            success: function(data) {
+                location.href = url //this will redirect to your index
+            }
+        });
+        // const request = new Request(
+        //     url, {
+        //         headers: {
+        //             'X-CSRFToken': csrftoken
+        //         }
+        //     }
+        // );
+        // fetch(request, {
+        //     method: 'POST',
+        //     mode: 'same-origin' // Do not send CSRF token to another domain.
+        // }).then(function(response) {
+        //     // ...
+        // });
     }
 </script>
 {% endblock content%}

@@ -1,169 +1,454 @@
 [{
-        "title": "GC Busan Spear vs OHHAMMA",
-        "team_a": "GC Busan Spear",
-        "team_b": "OHHAMMA",
-        "team_a_flag": "https://staff-cdn.siege.gg/org-695-gbs-2.png?orig",
-        "team_b_flag": "https://staff-cdn.siege.gg/org-774-ohm.png?orig",
-        "game": "Rainbow Six Siege",
-        "competation": "Korean Open Winter 2020",
-        "result": " ",
-        "time": "2021-01-13T10:00",
-        "country": "Asia-Pacific",
+        "title": "Mirage 2 vs 0 Tempo Storm",
+        "result": "2 0",
+        "competation": "North American League Major Qualifier 2020 Stage 1",
+        "time": "Saturday, Jul 25 2020, 0:00 UTC",
+        "country": "North America",
         "roster": {
-            "GC Busan Spear": [
-                "h3dy",
-                "CATsang",
-                "yass",
-                "Templat",
-                "JaekDow",
-                "Chanzo"
+            "Mirage": [
+                "zilchy",
+                "Flynn",
+                "NotLoading",
+                "QrTz",
+                "Silent"
             ],
-            "OHHAMMA": [
-                "iLeven",
-                "Demic",
-                "r3plica",
-                "Vamos",
-                "Yeti"
+            "Tempo Storm": [
+                "Mark",
+                "Krazy",
+                "Sloppy",
+                "Dream",
+                "Creators"
             ]
         },
-        "photos": {
-            "h3dy": "https://staff-cdn.siege.gg/player-222-h3dy-2.png?orig=&resize=150",
-            "CATsang": "https://staff-cdn.siege.gg/player-857-catsang.png?orig=&resize=150",
-            "yass": "https://staff-cdn.siege.gg/player-1138-yass.png?orig=&resize=150",
-            "Templat": "https://staff-cdn.siege.gg/player-1597-templat.png?orig=&resize=150",
-            "JaekDow": "https://staff-cdn.siege.gg/player-1776-yeongjin.png?orig=&resize=150",
-            "Chanzo": "https://staff-cdn.siege.gg/player-2094-chanzo.png?orig=&resize=150",
-            "iLeven": "https://staff-cdn.siege.gg/player-720-ileven.png?orig=&resize=150",
-            "Demic": "https://staff-cdn.siege.gg/player-1139-demic.png?orig=&resize=150",
-            "r3plica": "https://staff-cdn.siege.gg/player-2077-r3plica.png?orig=&resize=150",
-            "Vamos": "https://staff-cdn.siege.gg/player-2097-vamos.png?orig=&resize=150",
-            "Yeti": "https://siege.gg/img/player-silhouette-darker.svg"
+        "stats": {
+            "Mark": {
+                "name": "Mark",
+                "rating": "0.55",
+                "kd": "9-18 (-9)",
+                "entry": "0-7 (-7)",
+                "kost": "36%",
+                "kpr": "0.41",
+                "srv": "18%",
+                "1vx": "0",
+                "plant": "0",
+                "hs": "50%"
+            },
+            "Krazy": {
+                "name": "Krazy",
+                "rating": "0.93",
+                "kd": "15-17 (-2)",
+                "entry": "0-1 (-1)",
+                "kost": "68%",
+                "kpr": "0.68",
+                "srv": "23%",
+                "1vx": "0",
+                "plant": "2",
+                "hs": "53%"
+            },
+            "zilchy": {
+                "name": "zilchy",
+                "rating": "1.23",
+                "kd": "19-15 (+4)",
+                "entry": "4-1 (+3)",
+                "kost": "86%",
+                "kpr": "0.86",
+                "srv": "32%",
+                "1vx": "0",
+                "plant": "0",
+                "hs": "33%"
+            },
+            "Flynn": {
+                "name": "Flynn",
+                "rating": "0.92",
+                "kd": "9-15 (-6)",
+                "entry": "1-1 (+0)",
+                "kost": "68%",
+                "kpr": "0.41",
+                "srv": "32%",
+                "1vx": "1",
+                "plant": "2",
+                "hs": "44%"
+            },
+            "NotLoading": {
+                "name": "NotLoading",
+                "rating": "1.44",
+                "kd": "24-13 (+11)",
+                "entry": "3-1 (+2)",
+                "kost": "82%",
+                "kpr": "1.09",
+                "srv": "41%",
+                "1vx": "1",
+                "plant": "1",
+                "hs": "52%"
+            },
+            "Sloppy": {
+                "name": "Sloppy",
+                "rating": "0.71",
+                "kd": "11-18 (-7)",
+                "entry": "2-2 (+0)",
+                "kost": "55%",
+                "kpr": "0.50",
+                "srv": "18%",
+                "1vx": "0",
+                "plant": "0",
+                "hs": "50%"
+            },
+            "Dream": {
+                "name": "Dream",
+                "rating": "1.07",
+                "kd": "20-18 (+2)",
+                "entry": "4-3 (+1)",
+                "kost": "59%",
+                "kpr": "0.91",
+                "srv": "18%",
+                "1vx": "1",
+                "plant": "0",
+                "hs": "42%"
+            },
+            "Creators": {
+                "name": "Creators",
+                "rating": "0.96",
+                "kd": "17-17 (+0)",
+                "entry": "2-1 (+1)",
+                "kost": "45%",
+                "kpr": "0.77",
+                "srv": "23%",
+                "1vx": "1",
+                "plant": "0",
+                "hs": "47%"
+            },
+            "QrTz": {
+                "name": "QrTz",
+                "rating": "1.09",
+                "kd": "16-13 (+3)",
+                "entry": "3-2 (+1)",
+                "kost": "64%",
+                "kpr": "0.73",
+                "srv": "41%",
+                "1vx": "1",
+                "plant": "0",
+                "hs": "47%"
+            },
+            "Silent": {
+                "name": "Silent",
+                "rating": "1.11",
+                "kd": "19-17 (+2)",
+                "entry": "3-3 (+0)",
+                "kost": "73%",
+                "kpr": "0.86",
+                "srv": "23%",
+                "1vx": "1",
+                "plant": "0",
+                "hs": "44%"
+            }
         }
     },
     {
-        "title": "Faust vs Talon Esports",
-        "team_a": "Faust",
-        "team_b": "Talon Esports",
-        "team_a_flag": "https://staff-cdn.siege.gg/org-694-faust.png?orig",
-        "team_b_flag": "https://staff-cdn.siege.gg/org-671-talon.png?orig",
-        "game": "Rainbow Six Siege",
-        "competation": "Korean Open Winter 2020",
-        "result": " ",
-        "time": "2021-01-13T12:00",
-        "country": "Asia-Pacific",
+        "title": "9z Team 0 vs 2 Coscu Army",
+        "result": "0 2",
+        "competation": "Campeonato Sudamericano 2020 Stage 1",
+        "time": "Saturday, Jul 25 2020, 1:00 UTC",
+        "country": "Latin America",
         "roster": {
-            "Faust": [
-                "Siral",
-                "CrazyBoy",
-                "LATEPARTY",
-                "pLzThInKs",
-                "Minsu"
+            "9z Team": [
+                "Skillz",
+                "denike",
+                "TomHagen",
+                "zeta",
+                "Jager"
             ],
-            "Talon Esports": [
-                "Kanos",
-                "Tomorrow",
-                "BD",
-                "LabyRinth",
-                "PmW",
-                "Soldier"
+            "Coscu Army": [
+                "wikS",
+                "Pechito",
+                "NesT",
+                "shoxo",
+                "f0rb1"
             ]
         },
-        "photos": {
-            "Siral": "https://staff-cdn.siege.gg/player-685-siral.png?orig=&resize=150",
-            "CrazyBoy": "https://siege.gg/img/player-silhouette-darker.svg",
-            "LATEPARTY": "https://staff-cdn.siege.gg/player-2080-lateparty.png?orig=&resize=150",
-            "pLzThInKs": "https://siege.gg/img/player-silhouette-darker.svg",
-            "Minsu": "https://siege.gg/img/player-silhouette-darker.svg",
-            "Kanos": "https://staff-cdn.siege.gg/player-1766-kanos.png?orig=&resize=150",
-            "Tomorrow": "https://staff-cdn.siege.gg/player-1978-tomorrow-2.png?orig=&resize=150",
-            "BD": "https://staff-cdn.siege.gg/player-1980-bd-2.png?orig=&resize=150",
-            "LabyRinth": "https://staff-cdn.siege.gg/player-1981-labyrinth-2.png?orig=&resize=150",
-            "PmW": "https://staff-cdn.siege.gg/player-1982-pmw-2.png?orig=&resize=150",
-            "Soldier": "https://staff-cdn.siege.gg/player-2085-soldier.png?orig=&resize=150"
+        "stats": {
+            "Skillz": {
+                "name": "Skillz",
+                "rating": "0.76",
+                "kd": "12-16 (-4)",
+                "entry": "2-2 (+0)",
+                "kost": "43%",
+                "kpr": "0.57",
+                "srv": "24%",
+                "1vx": "0",
+                "plant": "0",
+                "hs": "67%"
+            },
+            "denike": {
+                "name": "denike",
+                "rating": "0.70",
+                "kd": "9-16 (-7)",
+                "entry": "2-1 (+1)",
+                "kost": "48%",
+                "kpr": "0.43",
+                "srv": "24%",
+                "1vx": "0",
+                "plant": "1",
+                "hs": "56%"
+            },
+            "TomHagen": {
+                "name": "TomHagen",
+                "rating": "0.96",
+                "kd": "15-17 (-2)",
+                "entry": "1-0 (+1)",
+                "kost": "71%",
+                "kpr": "0.71",
+                "srv": "19%",
+                "1vx": "0",
+                "plant": "1",
+                "hs": "57%"
+            },
+            "zeta": {
+                "name": "zeta",
+                "rating": "1.47",
+                "kd": "24-15 (+9)",
+                "entry": "4-1 (+3)",
+                "kost": "95%",
+                "kpr": "1.14",
+                "srv": "29%",
+                "1vx": "2",
+                "plant": "0",
+                "hs": "36%"
+            },
+            "Jager": {
+                "name": "Jager",
+                "rating": "0.78",
+                "kd": "8-11 (-3)",
+                "entry": "2-4 (-2)",
+                "kost": "56%",
+                "kpr": "0.50",
+                "srv": "31%",
+                "1vx": "0",
+                "plant": "0",
+                "hs": "88%"
+            },
+            "wikS": {
+                "name": "wikS",
+                "rating": "1.06",
+                "kd": "13-12 (+1)",
+                "entry": "1-1 (+0)",
+                "kost": "67%",
+                "kpr": "0.62",
+                "srv": "43%",
+                "1vx": "1",
+                "plant": "0",
+                "hs": "33%"
+            },
+            "Pechito": {
+                "name": "Pechito",
+                "rating": "0.94",
+                "kd": "12-16 (-4)",
+                "entry": "1-2 (-1)",
+                "kost": "71%",
+                "kpr": "0.57",
+                "srv": "24%",
+                "1vx": "0",
+                "plant": "2",
+                "hs": "45%"
+            },
+            "NesT": {
+                "name": "NesT",
+                "rating": "1.00",
+                "kd": "13-14 (-1)",
+                "entry": "0-2 (-2)",
+                "kost": "71%",
+                "kpr": "0.62",
+                "srv": "33%",
+                "1vx": "0",
+                "plant": "0",
+                "hs": "60%"
+            },
+            "shoxo": {
+                "name": "shoxo",
+                "rating": "1.35",
+                "kd": "21-10 (+11)",
+                "entry": "1-0 (+1)",
+                "kost": "67%",
+                "kpr": "1.00",
+                "srv": "52%",
+                "1vx": "2",
+                "plant": "0",
+                "hs": "57%"
+            },
+            "f0rb1": {
+                "name": "f0rb1",
+                "rating": "1.06",
+                "kd": "19-17 (+2)",
+                "entry": "6-6 (+0)",
+                "kost": "67%",
+                "kpr": "0.90",
+                "srv": "19%",
+                "1vx": "0",
+                "plant": "1",
+                "hs": "68%"
+            },
+            "Asterix": {
+                "name": "Asterix",
+                "rating": "0.62",
+                "kd": "1-3 (-2)",
+                "entry": "0-1 (-1)",
+                "kost": "50%",
+                "kpr": "0.25",
+                "srv": "25%",
+                "1vx": "0",
+                "plant": "0",
+                "hs": "0%"
+            }
         }
     },
     {
-        "title": "Lunatic-hai vs SGA eSPORTS",
-        "team_a": "Lunatic-hai",
-        "team_b": "SGA eSPORTS",
-        "team_a_flag": "https://staff-cdn.siege.gg/org-775-lh.png?orig",
-        "team_b_flag": "https://staff-cdn.siege.gg/org-692-sga-2.png?orig",
+        "title": "Mkers vs MACKO Esports",
+        "title_result": "Mkers 1 vs 2 MACKO Esports",
+        "team_a": "Mkers",
+        "team_b": "MACKO Esports",
+        "team_a_flag": "https://staff-cdn.siege.gg/org-472-mkrs-2.png?orig",
+        "team_b_flag": "https://staff-cdn.siege.gg/org-734-macko.png?orig",
         "game": "Rainbow Six Siege",
-        "competation": "Korean Open Winter 2020",
-        "result": " ",
-        "time": "2021-01-13T11:00",
-        "country": "Asia-Pacific",
+        "result": "1 2",
+        "competation": "PG Nationals Winter 2020 Finals",
+        "time": "2021-01-24T19:00",
+        "country": "Europe",
         "roster": {
-            "Lunatic-hai": [
-                "Houndbird",
-                "GimGeon",
-                "JJangDDol",
-                "F3ra",
-                "DOGI"
+            "Mkers": [
+                "Aqui",
+                "Scatto",
+                "Gemini",
+                "Sasha",
+                "Lollo"
             ],
-            "SGA eSPORTS": [
-                "JungGoon",
-                "Nero",
-                "Wheatling",
-                "CircLe",
-                "Kira-Miki"
+            "MACKO Esports": [
+                "Alation",
+                "Hunter",
+                "SirBoss",
+                "T3b",
+                "j3n4",
+                "Keenan"
             ]
         },
-        "photos": {
-            "Houndbird": "https://siege.gg/img/player-silhouette-darker.svg",
-            "GimGeon": "https://siege.gg/img/player-silhouette-darker.svg",
-            "JJangDDol": "https://siege.gg/img/player-silhouette-darker.svg",
-            "F3ra": "https://siege.gg/img/player-silhouette-darker.svg",
-            "DOGI": "https://siege.gg/img/player-silhouette-darker.svg",
-            "JungGoon": "https://staff-cdn.siege.gg/player-1366-junggoon.png?orig=&resize=150",
-            "Nero": "https://staff-cdn.siege.gg/player-1768-n3ro.png?orig=&resize=150",
-            "Wheatling": "https://staff-cdn.siege.gg/player-2084-wheatling.png?orig=&resize=150",
-            "CircLe": "https://staff-cdn.siege.gg/player-2087-circle.png?orig=&resize=150",
-            "Kira-Miki": "https://staff-cdn.siege.gg/player-2088-kira-miki.png?orig=&resize=150"
-        }
-    },
-    {
-        "title": "Cloud9 vs FriendlyFire Clan",
-        "team_a": "Cloud9",
-        "team_b": "FriendlyFire Clan",
-        "team_a_flag": "https://staff-cdn.siege.gg/org-177-c9.png?orig",
-        "team_b_flag": "https://staff-cdn.siege.gg/org-737-ff.png?orig",
-        "game": "Rainbow Six Siege",
-        "competation": "Korean Open Winter 2020",
-        "result": " ",
-        "time": "2021-01-13T13:00",
-        "country": "Asia-Pacific",
-        "roster": {
-            "Cloud9": [
-                "Static",
-                "EnvyTaylor",
-                "Nova",
-                "SyAIL",
-                "Harp3r"
-            ],
-            "FriendlyFire Clan": [
-                "Nenko",
-                "BaYu",
-                "Song",
-                "lu6y",
-                "Grace",
-                "Don9_Q",
-                "saeyeora"
-            ]
-        },
-        "photos": {
-            "Static": "https://staff-cdn.siege.gg/player-219-sweetblack-2.png?orig=&resize=150",
-            "EnvyTaylor": "https://staff-cdn.siege.gg/player-223-envytaylor-2.png?orig=&resize=150",
-            "Nova": "https://staff-cdn.siege.gg/player-704-nova-2.png?orig=&resize=150",
-            "SyAIL": "https://staff-cdn.siege.gg/player-1596-syail.png?orig=&resize=150",
-            "Harp3r": "https://staff-cdn.siege.gg/player-1790-harp3r.png?orig=&resize=150",
-            "Nenko": "https://siege.gg/img/player-silhouette-darker.svg",
-            "BaYu": "https://staff-cdn.siege.gg/player-2074-bayu.png?orig=&resize=150",
-            "Song": "https://staff-cdn.siege.gg/player-2076-song.png?orig=&resize=150",
-            "lu6y": "https://siege.gg/img/player-silhouette-darker.svg",
-            "Grace": "https://siege.gg/img/player-silhouette-darker.svg",
-            "Don9_Q": "https://siege.gg/img/player-silhouette-darker.svg",
-            "saeyeora": "https://siege.gg/img/player-silhouette-darker.svg"
-        }
+        "stats": [{
+                "name": "Alation",
+                "rating": "0.97",
+                "kd": "19-19 (+0)",
+                "entry": "2-3 (-1)",
+                "kost": "67%",
+                "kpr": "0.63",
+                "srv": "37%",
+                "1vx": "0",
+                "plant": "1",
+                "hs": "42%"
+            },
+            {
+                "name": "Torok",
+                "rating": "0.91",
+                "kd": "17-20 (-3)",
+                "entry": "2-2 (+0)",
+                "kost": "63%",
+                "kpr": "0.57",
+                "srv": "33%",
+                "1vx": "0",
+                "plant": "0",
+                "hs": "47%"
+            },
+            {
+                "name": "SirBoss",
+                "rating": "0.81",
+                "kd": "14-19 (-5)",
+                "entry": "2-3 (-1)",
+                "kost": "57%",
+                "kpr": "0.47",
+                "srv": "37%",
+                "1vx": "0",
+                "plant": "0",
+                "hs": "79%"
+            },
+            {
+                "name": "Aqui",
+                "rating": "1.00",
+                "kd": "25-22 (+3)",
+                "entry": "11-5 (+6)",
+                "kost": "50%",
+                "kpr": "0.83",
+                "srv": "27%",
+                "1vx": "0",
+                "plant": "0",
+                "hs": "57%"
+            },
+            {
+                "name": "T3b",
+                "rating": "1.07",
+                "kd": "25-19 (+6)",
+                "entry": "4-7 (-3)",
+                "kost": "60%",
+                "kpr": "0.83",
+                "srv": "37%",
+                "1vx": "0",
+                "plant": "0",
+                "hs": "46%"
+            },
+            {
+                "name": "Scatto",
+                "rating": "0.85",
+                "kd": "14-19 (-5)",
+                "entry": "2-3 (-1)",
+                "kost": "57%",
+                "kpr": "0.47",
+                "srv": "37%",
+                "1vx": "0",
+                "plant": "1",
+                "hs": "67%"
+            },
+            {
+                "name": "Gemini",
+                "rating": "1.01",
+                "kd": "20-21 (-1)",
+                "entry": "0-1 (-1)",
+                "kost": "67%",
+                "kpr": "0.67",
+                "srv": "30%",
+                "1vx": "0",
+                "plant": "3",
+                "hs": "39%"
+            },
+            {
+                "name": "j3n4",
+                "rating": "1.14",
+                "kd": "23-17 (+6)",
+                "entry": "1-2 (-1)",
+                "kost": "70%",
+                "kpr": "0.77",
+                "srv": "43%",
+                "1vx": "0",
+                "plant": "0",
+                "hs": "30%"
+            },
+            {
+                "name": "Sasha",
+                "rating": "0.81",
+                "kd": "16-22 (-6)",
+                "entry": "3-1 (+2)",
+                "kost": "63%",
+                "kpr": "0.53",
+                "srv": "27%",
+                "1vx": "0",
+                "plant": "0",
+                "hs": "38%"
+            },
+            {
+                "name": "Keenan",
+                "rating": "1.08",
+                "kd": "23-18 (+5)",
+                "entry": "3-3 (+0)",
+                "kost": "70%",
+                "kpr": "0.77",
+                "srv": "40%",
+                "1vx": "0",
+                "plant": "0",
+                "hs": "48%"
+            }
+        ]
     }
 ]
