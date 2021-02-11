@@ -50,7 +50,7 @@
 <div id="completed-matches" class="container border">
     {% for match in match_list %}
 
-    <a href="/matches/result/{{match.title}}" id="completed-match-{{forloop.counter}}" class="completed-match-links container p-1" style="text-decoration:none;">
+    <a href="/matches/result/{{match.id}}" id="completed-match-{{forloop.counter}}" class="completed-match-links container p-1" style="text-decoration:none;">
         <div class=" match-title row">
             <div class="team-a col-4 d-flex align-items-center justify-content-center team-card">
                 {%if not match.team_a_flag %}

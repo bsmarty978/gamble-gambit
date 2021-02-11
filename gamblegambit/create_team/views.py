@@ -323,6 +323,7 @@ def completedmatchList(request):
     for match in Matches.objects.filter(isCompleted=True):
         print(match.title)
         data = {
+            "id": match.id,
             "title": match.title,
             "team_a": match.team_a,
             "team_b": match.team_b,
@@ -338,3 +339,64 @@ def completedmatchList(request):
         completed_list.append(data)
     completed_list.sort(key=lambda r:r["time_obj"],reverse=True)
     return render(request,"results.html", {'match_list':completed_list})
+
+
+def match_result_score(request, id):
+    match_find = Matches.objects.get(id=id)
+    if match_find.isCompleted == True:
+        pass_match = {
+            "id": match_find.id,
+            "title": match_find.title,
+            "time": match_find.time,
+            "time_obj": match_find.time_obj,
+            "photos": match_find.photos,
+            "roster" : match_find.roster,
+            "team_a": match_find.team_a,
+            "team_b": match_find.team_b,
+        }
+        rsix_roster_adder(pass_match)
+        match_found = Matches.objects.get(id=id)
+        team_a = match_found.team_a
+        team_b = match_found.team_b
+        team_a_stats = []
+        team_b_stats = []
+
+        for player in match_found.result:
+            if player["name"] in match_found.roster[team_a]:
+                team_a_stats.append(player)
+            elif player["name"] in match_found.roster[team_b]:
+                team_b_stats.append(player)
+            else:
+                pass
+
+        full_roster = match_found.roster[team_a] + match_found.roster[team_b]
+        for remainer in match_found.result:
+            if remainer["name"] not in full_roster:
+                if len(team_a_stats) < 5:
+                    team_a_stats.append(remainer)
+                else:
+                    team_b_stats.append(remainer)
+        team_a_stats=sorted(team_a_stats, key = lambda i: float(i['rating']),reverse = True)
+        team_b_stats=sorted(team_b_stats, key = lambda i: float(i['rating']),reverse = True)
+                
+        match = {
+            "id": match_found.id,
+            "title": match_found.title,
+            "team_a": match_found.team_a,
+            "team_b": match_found.team_b,
+            "team_a_flag": match_found.team_a_flag,
+            "team_b_flag": match_found.team_b_flag,
+            "team_a_photos": match_found.team_a_photos,
+            "team_b_photos": match_found.team_b_photos,
+            "time": match_found.time,
+            "time_obj": match_found.time_obj,
+            "game": match_found.game,
+            "competation": match_found.competation,
+            "score_a" : match_found.score_a,
+            "score_b" : match_found.score_b,
+            "team_a_stats" : team_a_stats,
+            "team_b_stats" : team_b_stats
+        }
+        return render(request,"match-result.html",match)
+    else:
+        return HttpResponse("Match is not available")

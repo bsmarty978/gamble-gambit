@@ -1,0 +1,314 @@
+{% extends "base.html"%} {% block content %}
+<script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+<style>
+    /* player card style */
+    
+    .ply-card {
+        min-height: 90px;
+        min-width: 90px;
+    }
+    
+    .player-a {
+        background-color: rgba(90, 98, 255, 0.569);
+        border-radius: 1em;
+        transition: 0.5s;
+    }
+    
+    .player-a:hover {
+        box-shadow: 0 0 8px 6px blue;
+    }
+    
+    .player-b {
+        background-color: rgba(255, 109, 90, 0.569);
+        border-radius: 1em;
+        transition: 0.5s;
+    }
+    
+    .player-b:hover {
+        box-shadow: 0 0 8px 6px red;
+    }
+    
+    .player-dis {
+        background-color: rgba(60, 45, 43, 0.569);
+        transition: 0.5s;
+    }
+    
+    .player-dis:hover {
+        box-shadow: 0 0 8px 6px rgb(123, 119, 119);
+    }
+    
+    .cap-hover {
+        transition: 0.5s;
+    }
+    
+    .cap-hover:hover {
+        /* color: yellow; */
+        background: rgba(250, 250, 129, 0.667);
+        box-shadow: 0 0 8px 6px rgb(255, 251, 1);
+    }
+    
+    .cap-active {
+        color: yellow;
+    }
+    /* ---------------*/
+    /* match title  */
+    
+    .match-title {
+        /* margin: 1em 0; */
+        background: rgb(131, 253, 253);
+        border-radius: 0.5em;
+        box-shadow: 0px 0px 8px 6px rgba(125, 232, 240, 0.986);
+    }
+    /* .title {
+        margin: 0 auto;
+    } */
+    
+    .meta-data {
+        border-radius: 1em;
+        box-shadow: 0px 0px 8px 6px rgba(125, 232, 240, 0.986);
+        font-weight: bold;
+    }
+    
+    .bo {
+        border: 1px solid plum;
+    }
+    
+    .team-a-title {
+        color: blue;
+    }
+    
+    .team-b-title {
+        color: red;
+    }
+    /* ---------------*/
+    /* match roster*/
+    
+    .title-a {
+        box-shadow: -5px 0px 8px 6px rgba(90, 98, 255, 0.569);
+        /* background-color: rgba(90, 98, 255, 0.569); */
+        transition: 0.5s;
+        border-radius: 1em;
+    }
+    /* .title-a:hover {
+        /* box-shadow: none; */
+    /* background-color: rgba(90, 98, 255, 0.569); */
+    /* border-radius: 1em; */
+    /* } */
+    
+    .title-b {
+        box-shadow: 5px 0px 8px 6px rgba(255, 90, 90, 0.569);
+        /* background-color: rgba(255, 90, 90, 0.569); */
+        transition: 0.5s;
+        border-radius: 1em;
+    }
+    /* .title-b:hover {
+        /* box-shadow: none;
+        /* background-color: rgba(255, 90, 90, 0.569); */
+    /* border-radius: 1em; */
+    /* }  */
+    
+    .roster {
+        text-decoration: none;
+        /* text-align: start; */
+    }
+    
+    .match-roster {
+        margin: 2em 0;
+        padding: 2em;
+        /* text-align: center; */
+        background: rgb(131, 253, 253);
+        border-radius: 0.5em;
+        box-shadow: 0px 0px 8px 6px rgba(125, 232, 240, 0.986);
+    }
+    
+    .team-a-roster {
+        border-top: 4px solid rgb(0, 0, 122);
+        border-bottom: 4px solid rgb(0, 0, 122);
+        padding: 0.5em;
+        border-radius: 2em;
+        background-color: rgba(92, 92, 252, 0.299);
+    }
+    
+    .team-b-roster {
+        border-top: 4px solid rgb(123, 0, 0);
+        border-bottom: 4px solid rgb(123, 0, 0);
+        padding: 0.5em;
+        border-radius: 2em;
+        background-color: rgba(252, 92, 92, 0.299);
+    }
+    
+    .my-team-roster {
+        border-top: 4px solid rgb(0, 123, 10);
+        border-bottom: 4px solid rgb(0, 123, 10);
+        padding: 0.5em;
+        border-radius: 2em;
+        background-color: rgba(92, 252, 111, 0.299);
+        min-height: 125px;
+    }
+    
+    .sub-btn {
+        align-self: center;
+    }
+    /* ---------------*/
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".active").removeClass("active");
+    });
+</script>
+<div class="macth-data-container container">
+
+    <div class="match-title my-3 py-2 text-center container">
+        <div class="title  row justify-content-around align-items-center">
+            <div class="title-a m-1 col-4">
+                <img src={{team_a_flag}} alt=" " class="team-a-flag mx-2" height="70px " width="70px ">
+                <span class="team-a-title " style="font-size: 20px; font-weight: bold;">{{team_a}}</span>
+            </div>
+            <div class="title-vs m-1 col-1 d-flex justify-content-center align-items-center">
+                <span class="vs-title" style="font-size: 30px; font-weight: bold; color:rgb(123, 0, 0);">VS</span>
+            </div>
+            <div class="title-b m-1 col-4">
+                <span class="team-b-title " style="font-size: 20px; font-weight: bold;">{{team_b}}</span>
+                <img src={{team_b_flag}} alt=" " class="team-b-flag mx-2" height="70px " width="70px ">
+            </div>
+        </div>
+
+        <div class="meta-data row justify-content-center align-items-center my-2 py-2">
+            <span class="time col-4 d-flex justify-content-center align-items-center">{% load tz %}{{ time_obj|timezone:"Asia/Kolkata" }}</span>
+            <span class="game col-2 d-flex justify-content-center align-items-center">{{game}}</span>
+            <span class="competation col-4 d-flex justify-content-center align-items-center">{{competation}}</span>
+        </div>
+    </div>
+
+    <div class="match-roster container text-center">
+        <div class="roster">
+            <h3 class="font-weight-bold">Roster</h3>
+        </div>
+        <div class="roster-container row justify-content-between">
+            <div class="team-a col">
+                <div class="team-a-title">
+                    <h4>{{team_a}}</h4>
+                </div>
+                <div class="team-a-roster row justify-content-around">
+                    {% for player in team_a_photos %} {% for name,photo in player.items %}
+                    <div class="player-card-a-{{forloop.counter}} col-1 ply-card player-a m-1  d-flex flex-column justify-content-center align-items-center">
+                        <img src="{{photo}}" class="img-fluid " alt="">
+                        <p class="player-name text-center ">{{name}}</p>
+                    </div>
+                    {% endfor %} {% endfor %}
+                </div>
+            </div>
+            <div class="team-b col">
+                <div class="team-b-title">
+                    <h4>{{team_b}}</h4>
+                </div>
+                <div class="team-b-roster row justify-content-around">
+                    {% for player in team_b_photos %} {% for name,photo in player.items %}
+                    <div class="player-card-b-{{forloop.counter}} col-1 ply-card player-b m-1 d-flex flex-column justify-content-center align-items-center">
+                        <img src="{{photo}}" class="img-fluid " alt="">
+                        <p class="player-name text-center ">{{name}}</p>
+                    </div>
+                    {% endfor %} {% endfor %}
+                </div>
+            </div>
+        </div>
+        <br> {% comment %}
+        <div class="my_team">
+            <div class="my-active-team">
+                <h4 id="demo">My Team</h4>
+            </div>
+
+            <div class="active-team my-team-roster row justify-content-around"></div>
+
+        </div> {% endcomment %}
+        <br/>
+
+    </div>
+    <div class="col-12">
+        <h2 class="mb-0">Player stats</h2>
+        <div class="table-responsive">
+            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6"></div>
+                    <div class="col-sm-12 col-md-6"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-sm table-hover table--stats table--player-stats js-dt--player-stats js-heatmap w-100 dataTable no-footer" id="DataTables_Table_0" role="grid" style="width: 1116px;">
+                    <thead>
+                        <tr role="row">
+                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 205.2px;"></th>
+                            <th data-toggle="tooltip" data-html="true" data-delay="{&quot;show&quot;:0,&quot;hide&quot;:1000}" title="" data-original-title="SiegeGG player rating (for this match only). <a href='https://siege.gg/news/946' target='_blank'>Explanation</a>" class="sorting_desc"
+                                tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Rating: activate to sort column descending" style="width: 80.6px;">Rating</th>
+                            <th data-toggle="tooltip" title="" data-original-title="Total kills and deaths" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="K-D (+/-): activate to sort column descending" style="width: 116.6px;">K-D (+/-)</th>
+                            <th data-toggle="tooltip" title="" class="w-6 sorting" data-original-title="Opening kills and deaths" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Entry (+/-): activate to sort column descending" style="width: 97.6px;">Entry (+/-)</th>
+                            <th data-toggle="tooltip" title="" data-original-title="Percentage of rounds that player did 1 of any: kill, plant, defuse, survive, or was traded after death" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="KOST: activate to sort column descending"
+                                style="width: 68.6px;">KOST</th>
+                            <th data-toggle="tooltip" title="" data-original-title="Kills per round" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="KPR: activate to sort column descending" style="width: 55.6px;">KPR</th>
+                            <th data-toggle="tooltip" title="" data-original-title="Percentage of rounds survived" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="SRV: activate to sort column descending" style="width: 52.6px;">SRV</th>
+                            <th data-toggle="tooltip" title="" data-original-title="Number of wins in clutch situations" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="1vX: activate to sort column descending" style="width: 48.6px;">1vX</th>
+                            <th data-toggle="tooltip" title="" class="w-3 sorting" data-original-title="Total defuser plants" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Plant: activate to sort column descending" style="width: 48.6px;">Plant</th>
+                            <th data-toggle="tooltip" title="" data-original-title="Headshot percentage" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="HS%: activate to sort column descending" style="width: 63.6px;">HS%</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="team-a-row">
+                            <td class="js-heatmap-ignore" colspan="100">
+                                <div class="title-a-row col-3">
+                                    <img src={{team_a_flag}} alt=" " class="team-a-flag mx-2" height="30px" width="30px">
+                                    <span class="team-a-title" style="font-size: 16px; font-weight: bold;">{{team_a}}</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- here will be team A players -->
+
+                        {% for player in team_a_stats %}
+                        <tr>
+                            {% for item in player.items %}
+                            <td>{{ item |last }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+
+
+                        <tr class="team-b-row">
+                            <td class="js-heatmap-ignore" colspan="100">
+                                <div class="title-b-row col-3">
+                                    <img src={{team_b_flag}} alt=" " class="team-b-flag mx-2" height="30px" width="30px">
+                                    <span class="team-b-title" style="font-size: 16px; font-weight: bold;">{{team_b}}</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- here will be team B players -->
+                        {% for player in team_b_stats %}
+                        <tr>
+                            {% for item in player.items %}
+                            <td>{{ item |last }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- {% comment %} {# this is example of passing python object to JS as json object to use in js#} {{ photos|json_script:"hello-data" }}
+
+<script>
+    const jsdata = JSON.parse(document.getElementById('hello-data').textContent);
+    console.log(jsdata);
+</script>
+{% endcomment %} -->
+
+{{ title|json_script:"match-title-json" }}
+<script>
+</script>
+{% endblock content%}

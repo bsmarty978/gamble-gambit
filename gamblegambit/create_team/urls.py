@@ -8,4 +8,5 @@ urlpatterns =[
     path('upcoming',views.upcoming,name="upcoming"),
     path('results',views.completedmatchList,name="completed"),
     path('<str:title>/myteam/',views.confirm_team,name="myteam"),
+    path('result/<str:id>',views.match_result_score,name="match_result_score"),
 ]
