@@ -1,0 +1,15 @@
+{% extends "base.html" %} {% block content %}
+<script>
+    $(document).ready(function() {
+        $(".active").removeClass("active");
+        $("#stats-tab").addClass("active");
+    });
+</script>
+<div class="game-stats">
+    <a href="">
+        <div>
+            <h1>Current page loading.....</h1>
+        </div>
+    </a>
+</div>
+{% endblock content %}

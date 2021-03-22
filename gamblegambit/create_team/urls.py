@@ -7,6 +7,8 @@ urlpatterns =[
     path('sample',views.sample,name="sample"),
     path('upcoming',views.upcoming,name="upcoming"),
     path('results',views.completedmatchList,name="completed"),
+    path('stats',views.stats_page,name="stats_page"),
     path('<str:title>/myteam/',views.confirm_team,name="myteam"),
     path('result/<str:id>',views.match_result_score,name="match_result_score"),
+    path('profile/myprofile',views.myprofile_page,name="myprofilepage"),
 ]

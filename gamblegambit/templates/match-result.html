@@ -112,7 +112,9 @@
         /* text-align: start; */
     }
     
-    .match-roster {
+    .match-roster,
+    .score-board-container,
+    .leader-board-container {
         margin: 2em 0;
         padding: 2em;
         /* text-align: center; */
@@ -149,6 +151,29 @@
     .sub-btn {
         align-self: center;
     }
+    
+    .win-team {
+        background-color: rgba(125, 240, 135, 0.986);
+        /* box-shadow: -5px 0px 8px 6px rgba(168, 236, 174, 0.986); */
+        border-radius: 1em;
+        font-weight: bold;
+        font-size: 1.5em;
+    }
+    
+    .lose-team {
+        background-color: rgba(240, 125, 125, 0.986);
+        /* box-shadow: 5px 0px 8px 6px rgba(236, 168, 168, 0.986); */
+        border-radius: 1em;
+        font-weight: bold;
+        font-size: 1.5em;
+    }
+    
+    .tie-team {
+        background-color: rgba(0, 255, 221, 0.986);
+        border-radius: 1em;
+        font-weight: bold;
+        font-size: 1.5em;
+    }
     /* ---------------*/
 </style>
 
@@ -166,9 +191,11 @@
                 <img src={{team_a_flag}} alt=" " class="team-a-flag mx-2" height="70px " width="70px ">
                 <span class="team-a-title " style="font-size: 20px; font-weight: bold;">{{team_a}}</span>
             </div>
+            <div class="team-a-result  col-1 d-flex justify-content-center align-items-center align-self-stretch">{{score_a}}</div>
             <div class="title-vs m-1 col-1 d-flex justify-content-center align-items-center">
                 <span class="vs-title" style="font-size: 30px; font-weight: bold; color:rgb(123, 0, 0);">VS</span>
             </div>
+            <div class="team-b-result col-1 d-flex justify-content-center align-items-center align-self-stretch">{{score_b}}</div>
             <div class="title-b m-1 col-4">
                 <span class="team-b-title " style="font-size: 20px; font-weight: bold;">{{team_b}}</span>
                 <img src={{team_b_flag}} alt=" " class="team-b-flag mx-2" height="70px " width="70px ">
@@ -226,81 +253,127 @@
         <br/>
 
     </div>
-    <div class="col-12">
-        <h2 class="mb-0">Player stats</h2>
-        <div class="table-responsive">
-            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
-                <div class="row">
-                    <div class="col-sm-12 col-md-6"></div>
-                    <div class="col-sm-12 col-md-6"></div>
+    <div class="score-board-container">
+        <div class="col-12">
+            <h2 class="mb-0">Player stats</h2>
+            <div class="table-responsive">
+                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6"></div>
+                        <div class="col-sm-12 col-md-6"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-sm table-hover table--stats table--player-stats js-dt--player-stats js-heatmap w-100 dataTable no-footer" id="DataTables_Table_0" role="grid" style="width: 1116px;">
+                        <thead>
+                            <tr role="row">
+                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 205.2px;"></th>
+                                <th data-toggle="tooltip" data-html="true" data-delay="{&quot;show&quot;:0,&quot;hide&quot;:1000}" title="" data-original-title="SiegeGG player rating (for this match only). <a href='https://siege.gg/news/946' target='_blank'>Explanation</a>" class="sorting_desc"
+                                    tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Rating: activate to sort column descending" style="width: 80.6px;">Rating</th>
+                                <th data-toggle="tooltip" title="" data-original-title="Total kills and deaths" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="K-D (+/-): activate to sort column descending" style="width: 116.6px;">K-D (+/-)</th>
+                                <th data-toggle="tooltip" title="" class="w-6 sorting" data-original-title="Opening kills and deaths" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Entry (+/-): activate to sort column descending" style="width: 97.6px;">Entry (+/-)</th>
+                                <th data-toggle="tooltip" title="" data-original-title="Percentage of rounds that player did 1 of any: kill, plant, defuse, survive, or was traded after death" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="KOST: activate to sort column descending"
+                                    style="width: 68.6px;">KOST</th>
+                                <th data-toggle="tooltip" title="" data-original-title="Kills per round" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="KPR: activate to sort column descending" style="width: 55.6px;">KPR</th>
+                                <th data-toggle="tooltip" title="" data-original-title="Percentage of rounds survived" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="SRV: activate to sort column descending" style="width: 52.6px;">SRV</th>
+                                <th data-toggle="tooltip" title="" data-original-title="Number of wins in clutch situations" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="1vX: activate to sort column descending" style="width: 48.6px;">1vX</th>
+                                <th data-toggle="tooltip" title="" class="w-3 sorting" data-original-title="Total defuser plants" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Plant: activate to sort column descending" style="width: 48.6px;">Plant</th>
+                                <th data-toggle="tooltip" title="" data-original-title="Headshot percentage" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="HS%: activate to sort column descending" style="width: 63.6px;">HS%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="team-a-row">
+                                <td class="js-heatmap-ignore" colspan="100">
+                                    <div class="title-a-row col-3">
+                                        <img src={{team_a_flag}} alt=" " class="team-a-flag mx-2" height="30px" width="30px">
+                                        <span class="team-a-title" style="font-size: 16px; font-weight: bold;">{{team_a}}</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- here will be team A players -->
+
+                            {% for player in team_a_stats %}
+                            <tr>
+                                {% for item in player.items %}
+                                <td>{{ item |last }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+
+
+                            <tr class="team-b-row">
+                                <td class="js-heatmap-ignore" colspan="100">
+                                    <div class="title-b-row col-3">
+                                        <img src={{team_b_flag}} alt=" " class="team-b-flag mx-2" height="30px" width="30px">
+                                        <span class="team-b-title" style="font-size: 16px; font-weight: bold;">{{team_b}}</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- here will be team B players -->
+                            {% for player in team_b_stats %}
+                            <tr>
+                                {% for item in player.items %}
+                                <td>{{ item |last }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <table class="table table-sm table-hover table--stats table--player-stats js-dt--player-stats js-heatmap w-100 dataTable no-footer" id="DataTables_Table_0" role="grid" style="width: 1116px;">
-                    <thead>
-                        <tr role="row">
-                            <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 205.2px;"></th>
-                            <th data-toggle="tooltip" data-html="true" data-delay="{&quot;show&quot;:0,&quot;hide&quot;:1000}" title="" data-original-title="SiegeGG player rating (for this match only). <a href='https://siege.gg/news/946' target='_blank'>Explanation</a>" class="sorting_desc"
-                                tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Rating: activate to sort column descending" style="width: 80.6px;">Rating</th>
-                            <th data-toggle="tooltip" title="" data-original-title="Total kills and deaths" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="K-D (+/-): activate to sort column descending" style="width: 116.6px;">K-D (+/-)</th>
-                            <th data-toggle="tooltip" title="" class="w-6 sorting" data-original-title="Opening kills and deaths" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Entry (+/-): activate to sort column descending" style="width: 97.6px;">Entry (+/-)</th>
-                            <th data-toggle="tooltip" title="" data-original-title="Percentage of rounds that player did 1 of any: kill, plant, defuse, survive, or was traded after death" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="KOST: activate to sort column descending"
-                                style="width: 68.6px;">KOST</th>
-                            <th data-toggle="tooltip" title="" data-original-title="Kills per round" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="KPR: activate to sort column descending" style="width: 55.6px;">KPR</th>
-                            <th data-toggle="tooltip" title="" data-original-title="Percentage of rounds survived" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="SRV: activate to sort column descending" style="width: 52.6px;">SRV</th>
-                            <th data-toggle="tooltip" title="" data-original-title="Number of wins in clutch situations" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="1vX: activate to sort column descending" style="width: 48.6px;">1vX</th>
-                            <th data-toggle="tooltip" title="" class="w-3 sorting" data-original-title="Total defuser plants" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Plant: activate to sort column descending" style="width: 48.6px;">Plant</th>
-                            <th data-toggle="tooltip" title="" data-original-title="Headshot percentage" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="HS%: activate to sort column descending" style="width: 63.6px;">HS%</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="team-a-row">
-                            <td class="js-heatmap-ignore" colspan="100">
-                                <div class="title-a-row col-3">
-                                    <img src={{team_a_flag}} alt=" " class="team-a-flag mx-2" height="30px" width="30px">
-                                    <span class="team-a-title" style="font-size: 16px; font-weight: bold;">{{team_a}}</span>
-                                </div>
-                            </td>
-                        </tr>
-                        <!-- here will be team A players -->
+    </div>
+    <div class="leader-board-container">
+        <div class="col-12">
+            <h2 class="mb-0">Leaderboard</h2>
+            <div class="table-responsive">
+                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6"></div>
+                        <div class="col-sm-12 col-md-6"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    {% if leaderboard %}
+                    <table class="table table-sm table-hover table--stats table--player-stats js-dt--player-stats js-heatmap w-100 dataTable no-footer" id="DataTables_Table_1" role="grid" style="">
+                        <thead>
+                            <tr role="row">
+                                <th class="sorting_disabled" rowspan="1" colspan="1" aria-label="" style="width: 0.5em;"></th>
+                                <th data-toggle="tooltip" title="" data-original-title="Total kills and deaths" class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="K-D (+/-): activate to sort column descending" style="width: 1em;">User</th>
+                                <th data-toggle="tooltip " title=" " class="sorting " data-original-title="Opening kills and deaths " tabindex="0 " aria-controls="DataTables_Table_0 " rowspan="1 " colspan="1 " aria-label="Entry (+/-): activate to sort
+                                    column descending " style="width: 1em; ">Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                        {% for player in team_a_stats %}
-                        <tr>
-                            {% for item in player.items %}
-                            <td>{{ item |last }}</td>
+                            {% for users in leaderboard %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                {% for name,score in users.items %}
+                                <td>{{ name }}</td>
+                                <td>{{ score }}</td>
+                                {% endfor %}
+                            </tr>
                             {% endfor %}
-                        </tr>
-                        {% endfor %}
-
-
-                        <tr class="team-b-row">
-                            <td class="js-heatmap-ignore" colspan="100">
-                                <div class="title-b-row col-3">
-                                    <img src={{team_b_flag}} alt=" " class="team-b-flag mx-2" height="30px" width="30px">
-                                    <span class="team-b-title" style="font-size: 16px; font-weight: bold;">{{team_b}}</span>
-                                </div>
-                            </td>
-                        </tr>
-                        <!-- here will be team B players -->
-                        {% for player in team_b_stats %}
-                        <tr>
-                            {% for item in player.items %}
-                            <td>{{ item |last }}</td>
-                            {% endfor %}
-                        </tr>
-                        {% endfor %}
-
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <div class="alert alert-warning">Leaderboard data is not available</div>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
+
 </div>
 
 
-<!-- {% comment %} {# this is example of passing python object to JS as json object to use in js#} {{ photos|json_script:"hello-data" }}
+<!-- {% comment %} {# this is example of passing python object to JS as json object to use in js#} {{ photos|json_script:"hello-data " }}
 
 <script>
     const jsdata = JSON.parse(document.getElementById('hello-data').textContent);
@@ -308,7 +381,21 @@
 </script>
 {% endcomment %} -->
 
-{{ title|json_script:"match-title-json" }}
+{{ title|json_script:"match-title-json " }}
 <script>
+    var team_a_score = Number($(".team-a-result").text());
+    var team_b_score = Number($(".team-b-result").text());
+    console.log(team_a_score + team_b_score);
+    if (team_a_score > team_b_score) {
+        $(".team-a-result").addClass("win-team");
+        $(".team-b-result").addClass("lose-team");
+    } else if (team_a_score < team_b_score) {
+        $(".team-b-result").addClass("win-team");
+        $(".team-a-result").addClass("lose-team");
+    } else {
+        $(".team-b-result").addClass("tie-team");
+        $(".team-a-result").addClass("tie-team");
+    }
+    console.log("boom!");
 </script>
 {% endblock content%}

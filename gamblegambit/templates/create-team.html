@@ -182,6 +182,16 @@
         </div>
     </div>
 
+    <div class="rules">
+        <ul>
+            <li>Make a Team of total 5 Players from roster</li>
+            <li>You can only select atmost 3 player from one team</li>
+            <li>You have to select atleast 2 player from one team</li>
+            <li>You have to selcet one Captain from your team after</li>
+            <li></li>
+        </ul>
+    </div>
+
     <div class="match-roster container text-center">
         <div class="roster">
             <h3 class="font-weight-bold">Roster</h3>
@@ -247,7 +257,7 @@
 </script>
 {% endcomment %} -->
 
-{{ title|json_script:"match-title-json" }}
+{{ title|json_script:"match-title-json" }} {{ id|json_script:"match-id-json" }}
 <script>
     capState();
 
@@ -395,7 +405,8 @@
         let bohtml = $(".macth-data-container").html();
         // const jsdata = JSON.parse(document.getElementById('hello-data').textContent);
         const title = JSON.parse(document.getElementById('match-title-json').textContent);
-        console.log(title);
+        const id = JSON.parse(document.getElementById('match-id-json').textContent);
+        console.log(id);
         var my_team = {
             "my_cap": my_cap,
             "my_roster": my_roster,
@@ -416,7 +427,7 @@
 
         const csrftoken = getCookie('csrftoken');
         console.log(csrftoken);
-        url = encodeURI(`/matches/${title}/myteam/`);
+        url = encodeURI(`/matches/${id}/myteam/`);
         // $.post(url, headers: {
         //     'X-CSRFToken': csrftoken
         // }, my_team);

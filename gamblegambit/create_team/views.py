@@ -6,6 +6,7 @@ from django.contrib import messages
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 
 # from home.models import Matches
 
@@ -117,7 +118,7 @@ def match_status_updater():
         # time = dateparser.parse(match.time_obj.ctime(),settings={'RETURN_AS_TIMEZONE_AWARE': False})
         con = match.time_obj.timestamp()-timezone.now().timestamp()
         if con <= 0:
-            print(match.title + " is live")
+            # print(match.title + " is live")
             match.isUpcoming = False
             match.isOngoiing = True
             match.save()
@@ -126,6 +127,8 @@ local_spider_run()  #run local server to get data (rainbow six siege data)
 api_request_run()   #run api to get data (cs:go data)
 time_ob_adder(match_list)   #run this method to add time_obj 
 match_list.sort(key=lambda r:r["time_obj"]) #this inline function sort the match list acorrding to time_obj(datetime)
+
+#NOTE: Comment this to funcaiton while MODIFYINIG Model or DB
 match_DB_adder(match_list)  #this method adds matches in DB Matches
 match_status_updater()
 
@@ -181,18 +184,35 @@ def sample(request):
 def create_team(request, title):
     # print(title)  for debug purpose
     # print(request.user.is_authenticated)  checks user is authenicted or not
-
-    match = search_team_title(title)
-    if match != None:
-        if match["game"] == "Rainbow Six Siege":
-            rsix_roster_adder(match)
-        else:
-            csgo_roster_adder(match)
-
-        # return render(request,"create-team-js.html",{"match":match})
+    match_in_DB = Matches.objects.get(id=int(title))
+    if title == "DarkZero Esports vs TSM":
+        match_find = Matches.objects.get(title=title)
+        match  = {
+            "title": match_find.title,
+            "team_a": match_find.team_a,
+            "team_b": match_find.team_b,
+            "team_a_flag": match_find.team_a_flag,
+            "team_b_flag": match_find.team_b_flag,
+            "time_obj": match_find.time_obj,
+            "game": match_find.game,
+            "competation": match_find.competation,
+            "team_a_photos": match_find.team_a_photos,
+            "team_b_photos": match_find.team_b_photos,
+        }
         return render(request,"create-team.html",match)
     else:
-        return HttpResponse("Match is not available")
+        match = search_team_title(match_in_DB.title)
+        if match != None:
+            if match["game"] == "Rainbow Six Siege":
+                rsix_roster_adder(match)
+            else:
+                csgo_roster_adder(match)
+
+            # return render(request,"create-team-js.html",{"match":match})
+            match["id"]= title
+            return render(request,"create-team.html",match)
+        else:
+            return HttpResponse("Match is not available")
 
 @login_required(login_url='login')
 def confirm_team(request, title):
@@ -201,6 +221,7 @@ def confirm_team(request, title):
         my_team = request.POST.getlist("my_roster[]")
         # stat = request.POST.get("state")
         match_title = request.POST.get("title")
+        print(match_title)
 
         my_roster = {"my_cap":my_cap, "my_team":my_team}
 
@@ -210,7 +231,7 @@ def confirm_team(request, title):
         # print("================================")
         # try:
         try:
-            myteam_obj = MyTeam.objects.get(match=Matches.objects.get(title=match_title),username=request.user.username)
+            myteam_obj = MyTeam.objects.get(match=Matches.objects.get(id=int(title)),username=request.user.username)
         except:
             myteam_obj = None
         if myteam_obj:
@@ -224,6 +245,7 @@ def confirm_team(request, title):
             MyTeam.objects.create(
                 match = Matches.objects.get(title=match_title),
                 username = request.user.username,
+                user = User.objects.get(username=request.user.username),
                 user_captain = my_cap,
                 user_roster = my_team
                 
@@ -240,7 +262,7 @@ def confirm_team(request, title):
         return HttpResponse("POST:your team is created" + str(my_roster))
         # return redirect("myteam", title)
 
-    userTeam = MyTeam.objects.get(username=request.user.username,match=Matches.objects.get(title=title))
+    userTeam = MyTeam.objects.get(username=request.user.username,match=Matches.objects.get(id=int(title)))
     basephotos = userTeam.match.team_a_photos
     basephotos.extend(userTeam.match.team_b_photos)
     user_team_photos = []
@@ -266,6 +288,25 @@ def confirm_team(request, title):
 
 @login_required(login_url='login')
 def upcoming(request):
+    matches_from_db = Matches.objects.all().filter(isUpcoming=True)
+    match_list_from_DB = []
+    print(matches_from_db.count())
+    for match in matches_from_db:
+        meta_dict ={
+            "title": match.title,
+            "team_a": match.team_a,
+            "team_b": match.team_b,
+            "team_a_flag": match.team_a_flag,
+            "team_b_flag": match.team_b_flag,
+            "time_obj": match.time_obj,
+            "game": match.game,
+            "competation": match.competation,
+            "time" : match.time,
+            "time_obj": match.time_obj,
+            "id" : match.id
+        }
+        match_list_from_DB.append(meta_dict)
+    print(match_list_from_DB[0])
     con =  match_list[0]["time_obj"].timestamp()-timezone.now().timestamp()
     if con <= 0:
         local_spider_run()  #run local server to get data (rainbow six siege data)
@@ -274,8 +315,8 @@ def upcoming(request):
         match_list.sort(key=lambda r:r["time_obj"]) #this inline function sort the match list acorrding to time_obj(datetime)
         match_DB_adder(match_list)  #this method adds matches in DB Matches
         match_status_updater()
-
-    return render(request,"upcoming.html", {'match_list':match_list})
+    match_list_from_DB.sort(key=lambda r:r["time_obj"])
+    return render(request,"upcoming.html", {'match_list':match_list_from_DB})
 
 
 def r6_match_result_spider():
@@ -340,6 +381,52 @@ def completedmatchList(request):
     completed_list.sort(key=lambda r:r["time_obj"],reverse=True)
     return render(request,"results.html", {'match_list':completed_list})
 
+def calculate_leaderboard(id):
+    match_find = Matches.objects.get(id=id)
+    match_result = match_find.result
+    players_score = {}
+    for player_stats in match_result:
+        name = player_stats["name"]
+        kd = player_stats["kd"].split("(")[0]
+        entry = player_stats["entry"].split("(")[0]
+        kost = player_stats["kost"].split("%")[0]
+        kpr = player_stats["kpr"]
+        srv = player_stats["srv"].split("%")[0]
+        onevx = player_stats["1vx"]
+        plant = player_stats["plant"]
+        hs = player_stats["hs"].split("%")[0]
+        k = kd.split("-")[0]
+        d = kd.split("-")[1]
+        entry_k = entry.split("-")[0]
+        entry_d = entry.split("-")[1]
+
+        player_score = float(k)*10 - float(d)*8 + float(entry_k)*10 - float(entry_d)*8 + float(kost) + float(srv) + float(onevx)*15 + float(plant)*15
+        players_score[name]  = player_score
+
+    try:
+        participents = MyTeam.objects.filter(match=match_find)
+        print(participents)
+        participent_teams = []
+        for participant in participents:
+            user_score = 0
+            for player in participant.user_roster:
+                user_score = user_score + players_score[player]
+            user_score = user_score + players_score[participant.user_captain]
+            data = {
+                "user" : participant.username,
+                "user_team" : participant.user_roster,
+                "user_cap" : participant.user_captain,
+                "user_score" : user_score
+            }
+            participent_teams.append(data)
+        print(participent_teams)
+        return participent_teams
+        # for participant in participent_teams:
+
+
+    except:
+        print("match_not_found")
+        return "data not found"
 
 def match_result_score(request, id):
     match_find = Matches.objects.get(id=id)
@@ -378,7 +465,13 @@ def match_result_score(request, id):
                     team_b_stats.append(remainer)
         team_a_stats=sorted(team_a_stats, key = lambda i: float(i['rating']),reverse = True)
         team_b_stats=sorted(team_b_stats, key = lambda i: float(i['rating']),reverse = True)
-                
+        leaderboarddata = []
+        loopdata = calculate_leaderboard(id)
+        loopdata.sort(key=lambda r:r["user_score"],reverse = True)
+        for user in loopdata:
+            leaderboarddata.append({user["user"]:user["user_score"]})
+        print(leaderboarddata)
+
         match = {
             "id": match_found.id,
             "title": match_found.title,
@@ -395,8 +488,25 @@ def match_result_score(request, id):
             "score_a" : match_found.score_a,
             "score_b" : match_found.score_b,
             "team_a_stats" : team_a_stats,
-            "team_b_stats" : team_b_stats
+            "team_b_stats" : team_b_stats,
+            "leaderboard" : leaderboarddata
         }
+
+        # user_list = User.objects.all().iterator()
+        # for us in user_list:
+        #     print(us)
+
         return render(request,"match-result.html",match)
     else:
         return HttpResponse("Match is not available")
+
+@login_required(login_url='login')
+def stats_page(request):
+    return render(request,"stats_page.html")
+
+@login_required(login_url='login')
+def myprofile_page(request):
+    return render(request,"myprofilepage.html")
+
+
+
