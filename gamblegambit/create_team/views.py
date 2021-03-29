@@ -243,7 +243,7 @@ def confirm_team(request, title):
 
         else:
             MyTeam.objects.create(
-                match = Matches.objects.get(title=match_title),
+                match = Matches.objects.get(id=int(title)),
                 username = request.user.username,
                 user = User.objects.get(username=request.user.username),
                 user_captain = my_cap,
@@ -283,6 +283,8 @@ def confirm_team(request, title):
         "user_roster": userTeam.user_roster,
         "user_team_photos": user_team_photos
     }
+    if userTeam.match.isUpcoming == False:
+        messages.success(request,"Match is live/Completed,You can not change the players")
     return render(request,"myTeam.html",context)
 
 
@@ -502,11 +504,46 @@ def match_result_score(request, id):
 
 @login_required(login_url='login')
 def stats_page(request):
-    return render(request,"stats_page.html")
+    MyMatchesList = MyTeam.objects.filter(username = request.user.username)
+    mymatches_list = []
+    for m in MyMatchesList:
+        data = {
+            "myteam_id": m.id,
+            "match_id": m.match.id,
+            "title": m.match.title,
+            "team_a": m.match.team_a,
+            "team_b": m.match.team_b,
+            "team_a_flag": m.match.team_a_flag,
+            "team_b_flag": m.match.team_b_flag,
+            "time": m.match.time,
+            "time_obj": m.match.time_obj,
+            "game": m.match.game,
+            "competation": m.match.competation,
+            "score_a" : m.match.score_a,
+            "score_b" : m.match.score_b,
+            "isCompleted" : m.match.isCompleted,
+            "isUpcoming" : m.match.isUpcoming,
+        }
+        mymatches_list.append(data)
+    mymatches_list.sort(key=lambda r:r["time_obj"],reverse=True)
+    return render(request,"stats_page.html",{'match_list':mymatches_list})
 
-@login_required(login_url='login')
-def myprofile_page(request):
-    return render(request,"myprofilepage.html")
+# @login_required(login_url='login')
+# def myprofile_page(request):
+#     print(request.user.username)
+#     print(request.user.get_full_name())
+#     print(request.user.email)
+#     fullname = request.user.get_full_name()
+#     if fullname == "":
+#         fullname = request.user.username
+#     data = {
+#         "username": request.user.username,
+#         "email": request.user.email,
+#         "fullname": fullname.title(),
+#         # "firstname": request.user.firstname,
+#         # "lastname": request.user.lastname
+#     }
+#     return render(request,"myprofilepage.html",data)
 
 
 

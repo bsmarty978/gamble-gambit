@@ -183,3 +183,21 @@ def signupPage(request):
 #         match_status_updater()
 
 #     return render(request,"upcoming.html", {'match_list':match_list})
+
+
+@login_required(login_url='login')
+def myprofile_page(request):
+    print(request.user.username)
+    print(request.user.get_full_name())
+    print(request.user.email)
+    fullname = request.user.get_full_name()
+    if fullname == "":
+        fullname = request.user.username
+    data = {
+        "username": request.user.username,
+        "email": request.user.email,
+        "fullname": fullname.title(),
+        # "firstname": request.user.firstname,
+        # "lastname": request.user.lastname
+    }
+    return render(request,"myprofilepage.html",data)

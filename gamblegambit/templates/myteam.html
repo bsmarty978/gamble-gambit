@@ -217,10 +217,18 @@
         </div>
         </br>
         <div class="buttons-con d-flex justify-content-around">
+        {% if match.isUpcoming %}
             <button class="btn btn-info capToteam justify-content-center p-1" onclick="updateTeam()">
             <span class="iconify" data-icon="fluent:people-team-add-20-filled" style="font-size:1.5rem;"></span>
             <strong>Change Players</strong> 
         </button>
+        {% endif %}
+        {% if match.isCompleted %}
+            <button class="btn btn-success capToteam justify-content-center p-1" onclick="MatchResult()">
+            <span class="iconify" data-icon="foundation:results-demographics" data-inline="false" style="font-size:1.5rem;"></span>
+            <strong>Show Result</strong> 
+        </button>
+        {% endif %}
         </div>
     </div>
 
@@ -228,7 +236,21 @@
 
 <script>
     function updateTeam() {
-        location.href = document.referrer;
+        //{% comment %} location.href = document.referrer; {% endcomment %}
+        var x = location.href;
+        //var y = x.substring(30,33);
+        var y = ((x.split("matches/"))[1].split("/"))[0];
+        console.log(y);
+        location.href = "/matches/createteam/"+y;
+        // document.write('<a href="' +  + '">Go Back</a>');    
+    }
+    function MatchResult() {
+        //{% comment %} location.href = document.referrer; {% endcomment %}
+        var x = location.href;
+        //var y = x.substring(30,33);
+        var y = ((x.split("matches/"))[1].split("/"))[0];
+        console.log(y);
+        location.href = "/matches/result/"+y;
         // document.write('<a href="' +  + '">Go Back</a>');    
     }
 </script>

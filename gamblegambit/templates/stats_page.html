@@ -5,11 +5,70 @@
         $("#stats-tab").addClass("active");
     });
 </script>
-<div class="game-stats">
-    <a href="">
-        <div>
-            <h1>Current page loading.....</h1>
+<style>
+    .match-match-links {
+        display: block;
+        margin: 20px;
+        background-color: rgba(125, 232, 240, 0.361);
+        box-shadow: 0px 2px 4px 3px rgba(125, 232, 240, 0.986);
+        border-radius: 10px;
+        transition: all 0.5s;
+    }
+    
+    .match-match-links:hover {
+        box-shadow: 0px 0px 8px 8px rgba(93, 244, 255, 0.986);
+    }
+    
+    .bord {
+        display: flex;
+        justify-content: center;
+    }
+    
+    .match-title {
+        margin: 2px;
+    }
+    
+    .team-card {
+        background-color: rgba(125, 232, 240, 0.986);
+        border-radius: 10px;
+    }
+    
+    #messages {
+        background-color: rgb(255, 230, 155);
+        color: rgb(0, 0, 0);
+        padding: 10px;
+        margin-top: 10px;
+    }
+</style>
+<div id="match-matches" class="container border">
+    {% if not match_list %}
+    <div>
+        <p id="messages">You have not participated in any match yet.</p>
+    </div>
+    {% endif %} {% for match in match_list %}
+
+    <a href="/matches/{{match.match_id}}/myteam/" id="match-match-{{forloop.counter}}" class="match-match-links container p-1" style="text-decoration:none;">
+        <div class=" match-title row">
+            <div class="team-a col-5 d-flex align-items-center justify-content-center team-card">
+                {%if not match.team_a_flag %}
+                <i class="material-icons" height="40px " width="40px " style="font-size:40px">sports_esports</i> {% else %}
+                <img src={{ match.team_a_flag}} alt=" " class="team-a-flag m-1" height="40px " width="40px "> {% endif %}
+                <span class="team-a-title d-flex align-items-center font-weight-bold m-1">{{match.team_a}}</span>
+            </div>
+            <div class="match-vs col-2 d-flex align-items-center justify-content-center font-weight-bold">VS</div>
+            <div class="team-b col-5 d-flex align-items-center justify-content-center team-card">
+                <span class="team-b-title d-flex align-items-center font-weight-bold m-1">{{match.team_b}}</span> {%if not match.team_b_flag %}
+                <i class="material-icons" height="40px " width="40px " style="font-size:40px">sports_esports</i> {% else %}
+                <img src={{ match.team_b_flag}} alt=" " class="team-b-flag m-1" height="40px " width="40px "> {% endif %}
+
+            </div>
+        </div>
+        <div class="match-meta-data row justify-content-center align-items-center">
+            <span class="time col-sm-4  d-flex justify-content-center" dtutc="{{match.time}}" dt="{% load tz %}{{ match.time_obj|timezone:'Asia/Kolkata' }}">{% load tz %}{{ match.time_obj|timezone:"Asia/Kolkata" }}</span>
+            <span class="game col-sm-2  d-flex justify-content-center">{{match.game}}</span>
+            <span class="competation col-sm-4 d-flex justify-content-center">{{match.competation}}</span>
         </div>
     </a>
+    {% endfor %}
 </div>
 {% endblock content %}

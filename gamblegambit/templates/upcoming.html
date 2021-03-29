@@ -36,7 +36,7 @@
 <div id="upcoming-matches" class="container border">
     {% for match in match_list %}
 
-    <a href="/matches/{{match.id}}" id="upcoming-match-{{forloop.counter}}" class="upcoming-match-links container p-1" style="text-decoration:none;">
+    <a href="/matches/createteam/{{match.id}}" id="upcoming-match-{{forloop.counter}}" class="upcoming-match-links container p-1" style="text-decoration:none;">
         <div class=" match-title row">
             <div class="team-a col-5 d-flex align-items-center justify-content-center team-card">
                 {%if not match.team_a_flag %}

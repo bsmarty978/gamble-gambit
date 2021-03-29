@@ -30,7 +30,7 @@
             <a id="home-tab" class="nav-item nav-link active" href="/home">Home <span class="sr-only">(current)</span></a>
             <a id="upcoming-tab" class="nav-item nav-link" href="/matches/upcoming">Matches</a>
             <a id="results-tab" class="nav-item nav-link" href="/matches/results">Results</a>
-            <a id="stats-tab" class="nav-item nav-link" href="/matches/stats">Stats</a>
+            <a id="stats-tab" class="nav-item nav-link" href="/matches/stats">My Matches</a>
         </div>
     </div>
     <!-- <div class="user-header">
@@ -38,6 +38,6 @@
             <div id="username">Welcome,</div>
         </div> -->
 
-    <span class="user-header">Welcome, {{user}}</span>
+    <span class="user-header"><a class="user-profile" href="{% url 'myprofile' %}">{{user}}</a></span>
     <span><a class="user-header" href="{% url 'logout' %}" style="text-decoration: none;">Logout</a></span>
 </nav>

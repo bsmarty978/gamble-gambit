@@ -59,6 +59,15 @@
         border-radius: 0.5em;
         box-shadow: 0px 0px 8px 6px rgba(125, 232, 240, 0.986);
     }
+    
+    .rules {
+        /* margin: 1em 0; */
+        background: rgb(131, 253, 253);
+        border-radius: 0.5em;
+        box-shadow: 0px 0px 8px 6px rgba(125, 232, 240, 0.986);
+        padding: 1em 0.5em;
+        margin-top: 2em;
+    }
     /* .title {
         margin: 0 auto;
     } */
@@ -182,13 +191,18 @@
         </div>
     </div>
 
-    <div class="rules">
+    <div class="rules container">
+        <div class="rule-head">
+            <h3 class="font-weight-bold text-center">Rules</h3>
+        </div>
         <ul>
-            <li>Make a Team of total 5 Players from roster</li>
+            <li>Make a Team of total 5 Players from the roster</li>
             <li>You can only select atmost 3 player from one team</li>
             <li>You have to select atleast 2 player from one team</li>
-            <li>You have to selcet one Captain from your team after</li>
-            <li></li>
+            <li>You have to selcet one Captain from your team</li>
+            <li>You can select Captain only after you have selceted 5 players</li>
+            <li>Captain's points will be doubled (2x)</li>
+            <li>After selcting caption confirm your team</li>
         </ul>
     </div>
 
@@ -227,7 +241,7 @@
         <br>
         <div class="my_team">
             <div class="my-active-team">
-                <h4 id="demo">My Team</h4>
+                <h4 id="demo" class="font-weight-bold">My Team</h4>
             </div>
 
             <div class="active-team my-team-roster row justify-content-around"></div>
