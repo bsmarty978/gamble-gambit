@@ -12,8 +12,8 @@ import requests   #get json data from locally hosted spider
 
 # import datetime as dt
 import dateparser
-
-from .models import Matches
+import json
+from .models import Matches,RsixPlayerList
 from django.db.utils import IntegrityError
 
 from django.utils import timezone
@@ -35,8 +35,8 @@ def time_ob_adder(matches):
         # print(match["title"] +"  "+match["show_time"]) 
 
 #method to get data from locally stored json file static way
-# f = open("upcominglist.json",)
-# match_list = json.load(f)
+# f = open("people.json",)
+# r6playerlist = json.load(f)
 match_list = []
 #method to get json data from locally hosted spider
 def local_spider_run():
@@ -128,6 +128,7 @@ def match_status_updater():
 
 @login_required(login_url='login')
 def homePage(request):
+    # r6playerDBadder()
     return render(request,"index.html")
 
 def loginPage(request):
@@ -201,3 +202,11 @@ def myprofile_page(request):
         # "lastname": request.user.lastname
     }
     return render(request,"myprofilepage.html",data)
+
+# def r6playerDBadder():
+#     for player in r6playerlist:
+#         RsixPlayerList.objects.create(
+#          name=player["name"],
+#          rating=player["rating"],
+#          totalmatch=player["total matches"],
+#         )

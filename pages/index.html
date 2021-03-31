@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<link rel="stylesheet" href="scss/index.css">
+<link rel="stylesheet" href="/scss/index.css">
 
 <head>
     <meta charset="UTF-8">
@@ -23,6 +23,71 @@
         <div class="news"></div>
         <div class="current"></div>
         <div class="results"></div>
+    </div>
+    <div>
+        <div class="card card--ranking border-top-0 mb-4 overflow-hidden">
+            <div class="card-body bg-dark pb-0">
+                <h3 class="d-inline-block m-0"><a href="/ranking/" class="link-inherit text-white">Ranking</a></h3> <span class="fs-xs d-block text-muted pl-xl-2 pt-2 float-xl-right">Updated Jan 2021</span>
+                <ul class="nav nav-tabs h5 bg-dark" id="rankingTab" role="tablist">
+                    <li class="nav-item mr-1" role="presentation"> <a class="nav-link px-1 active" href="#naRankingTabContent" id="naRankingTab" data-toggle="tab" role="tab" aria-controls="#naRankingTabContent" aria-selected="true"> NA </a> </li>
+                    <li class="nav-item mr-1" role="presentation"> <a class="nav-link px-1 " href="#euRankingTabContent" id="euRankingTab" data-toggle="tab" role="tab" aria-controls="#euRankingTabContent" aria-selected="false"> EU </a> </li>
+                    <li class="nav-item mr-1" role="presentation"> <a class="nav-link px-1 " href="#latamRankingTabContent" id="latamRankingTab" data-toggle="tab" role="tab" aria-controls="#latamRankingTabContent" aria-selected="false"> LATAM </a> </li>
+                    <li class="nav-item mr-1" role="presentation">
+                    <a class="nav-link px-1 " href="#apacRankingTabContent" id="apacRankingTab" data-toggle="tab" role="tab" aria-controls="#apacRankingTabContent" aria-selected="false"> APAC </a> </li>
+                </ul>
+            </div>
+            <div class="tab-content" id="rankingTabContent">
+                <div class="tab-pane fade show active" id="naRankingTabContent" role="tabpanel" aria-labelledby="naRankingTab">
+                    <a href="/ranking/?tab=na" class="card-body pt-1">
+                        <ol class="ranking__list small list-unstyled m-0">
+                            <li class="mt-2 d-block"> <small class="ranking-item__rank mr-2 text-muted">1</small> <img class="ranking-item__logo img-fluid w-2" src="https://staff-cdn.siege.gg/org-473-tsm.png?orig=&amp;width=60&amp;height=60" data-src="https://staff-cdn.siege.gg/org-473-tsm.png?orig=&amp;width=60&amp;height=60"
+                                    alt="TSM"> <span class="mx-1 mb-0">TSM</span> </li>
+                            <li class="mt-2 d-block"> <small class="ranking-item__rank mr-2 text-muted">2</small> <img class="ranking-item__logo img-fluid w-2" src="https://staff-cdn.siege.gg/org-357-dzro.png?orig=&amp;width=60&amp;height=60" data-src="https://staff-cdn.siege.gg/org-357-dzro.png?orig=&amp;width=60&amp;height=60"
+                                    alt="DZRO"> <span class="mx-1 mb-0">DarkZero Esports</span> </li>
+                            <li class="mt-2 d-block"> <small class="ranking-item__rank mr-2 text-muted">3</small> <img class="ranking-item__logo img-fluid w-2" src="https://staff-cdn.siege.gg/org-64-ssg.png?orig=&amp;width=60&amp;height=60" data-src="https://staff-cdn.siege.gg/org-64-ssg.png?orig=&amp;width=60&amp;height=60"
+                                    alt="SSG"> <span class="mx-1 mb-0">Spacestation Gaming</span> </li>
+                            <li class="mt-2 d-block"> <small class="ranking-item__rank mr-2 text-muted">4</small> <img class="ranking-item__logo img-fluid w-2" src="https://staff-cdn.siege.gg/org-655-oxg-2.png?orig=&amp;width=60&amp;height=60" data-src="https://staff-cdn.siege.gg/org-655-oxg-2.png?orig=&amp;width=60&amp;height=60"
+                                    alt="OXG"> <span class="mx-1 mb-0">Oxygen Esports</span> </li>
+                            <li class="mt-2 d-block"> <small class="ranking-item__rank mr-2 text-muted">5</small> <img class="ranking-item__logo img-fluid w-2" src="https://staff-cdn.siege.gg/org-17-dis.png?orig=&amp;width=60&amp;height=60" data-src="https://staff-cdn.siege.gg/org-17-dis.png?orig=&amp;width=60&amp;height=60"
+                                    alt="DIS"> <span class="mx-1 mb-0">Disrupt Gaming</span> </li>
+                        </ol>
+                    </a>
+                </div>
+                <div class="tab-pane fade " id="euRankingTabContent" role="tabpanel" aria-labelledby="euRankingTab">
+                    <a href="/ranking/?tab=eu" class="card-body pt-1">
+                        <ol class="ranking__list small list-unstyled m-0">
+                            <li class="mt-2 d-block"> <small class="ranking-item__rank mr-2 text-muted">1</small> <img class="ranking-item__logo img-fluid w-2 lazy" src="/img/blank.png" data-src="https://staff-cdn.siege.gg/org-325-empr.png?orig=&amp;width=60&amp;height=60" alt="EMPR">                                <span class="mx-1 mb-0">Team Empire</span> </li>
+                            <li class="mt-2 d-block"> <small class="ranking-item__rank mr-2 text-muted">2</small> <img class="ranking-item__logo img-fluid w-2 lazy" src="/img/blank.png" data-src="https://staff-cdn.siege.gg/org-507-bds.png?orig=&amp;width=60&amp;height=60" alt="BDS">                                <span class="mx-1 mb-0">BDS Esport</span> </li>
+                            <li class="mt-2 d-block"> <small class="ranking-item__rank mr-2 text-muted">3</small> <img class="ranking-item__logo img-fluid w-2 lazy" src="/img/blank.png" data-src="https://staff-cdn.siege.gg/org-313-g2.png?orig=&amp;width=60&amp;height=60" alt="G2">                                <span class="mx-1 mb-0">G2 Esports</span> </li>
+                            <li class="mt-2 d-block"> <small class="ranking-item__rank mr-2 text-muted">4</small> <img class="ranking-item__logo img-fluid w-2 lazy" src="/img/blank.png" data-src="https://staff-cdn.siege.gg/org-656-vp.png?orig=&amp;width=60&amp;height=60" alt="VP">                                <span class="mx-1 mb-0">Virtus.pro</span> </li>
+                            <li class="mt-2 d-block"> <small class="ranking-item__rank mr-2 text-muted">5</small> <img class="ranking-item__logo img-fluid w-2 lazy" src="/img/blank.png" data-src="https://staff-cdn.siege.gg/org-667-tempra.png?orig=&amp;width=60&amp;height=60" alt="TEMPRA">                                <span class="mx-1 mb-0">Tempra Esports</span> </li>
+                        </ol>
+                    </a>
+                </div>
+                <div class="tab-pane fade " id="latamRankingTabContent" role="tabpanel" aria-labelledby="latamRankingTab">
+                    <a href="/ranking/?tab=latam" class="card-body pt-1">
+                        <ol class="ranking__list small list-unstyled m-0">
+                            <li class="mt-2 d-block"> <small class="ranking-item__rank mr-2 text-muted">1</small> <img class="ranking-item__logo img-fluid w-2 lazy" src="/img/blank.png" data-src="https://staff-cdn.siege.gg/org-69-tl-2.png?orig=&amp;width=60&amp;height=60" alt="TL">                                <span class="mx-1 mb-0">Team Liquid</span> </li>
+                            <li class="mt-2 d-block"> <small class="ranking-item__rank mr-2 text-muted">2</small> <img class="ranking-item__logo img-fluid w-2 lazy" src="/img/blank.png" data-src="https://staff-cdn.siege.gg/org-171-nip-2.png?orig=&amp;width=60&amp;height=60" alt="NIP">                                <span class="mx-1 mb-0">Ninjas In Pyjamas</span> </li>
+                            <li class="mt-2 d-block"> <small class="ranking-item__rank mr-2 text-muted">3</small> <img class="ranking-item__logo img-fluid w-2 lazy" src="/img/blank.png" data-src="https://staff-cdn.siege.gg/org-70-one.png?orig=&amp;width=60&amp;height=60" alt="ONE">                                <span class="mx-1 mb-0">Team oNe Esports</span> </li>
+                            <li class="mt-2 d-block"> <small class="ranking-item__rank mr-2 text-muted">4</small> <img class="ranking-item__logo img-fluid w-2 lazy" src="/img/blank.png" data-src="https://staff-cdn.siege.gg/org-521-mibr.png?orig=&amp;width=60&amp;height=60" alt="MIBR">                                <span class="mx-1 mb-0">MIBR</span> </li>
+                            <li class="mt-2 d-block"> <small class="ranking-item__rank mr-2 text-muted">5</small> <img class="ranking-item__logo img-fluid w-2 lazy" src="/img/blank.png" data-src="https://staff-cdn.siege.gg/org-150-intz.png?orig=&amp;width=60&amp;height=60" alt="INTZ">                                <span class="mx-1 mb-0">INTZ e-Sports</span> </li>
+                        </ol>
+                    </a>
+                </div>
+                <div class="tab-pane fade " id="apacRankingTabContent" role="tabpanel" aria-labelledby="apacRankingTab">
+                    <a href="/ranking/?tab=apac" class="card-body pt-1">
+                        <ol class="ranking__list small list-unstyled m-0">
+                            <li class="mt-2 d-block"> <small class="ranking-item__rank mr-2 text-muted">1</small> <img class="ranking-item__logo img-fluid w-2 lazy" src="/img/blank.png" data-src="https://staff-cdn.siege.gg/org-344-gnts.png?orig=&amp;width=60&amp;height=60" alt="GNTS">                                <span class="mx-1 mb-0">Giants Gaming</span> </li>
+                            <li class="mt-2 d-block"> <small class="ranking-item__rank mr-2 text-muted">2</small> <img class="ranking-item__logo img-fluid w-2 lazy" src="/img/blank.png" data-src="https://staff-cdn.siege.gg/org-177-c9.png?orig=&amp;width=60&amp;height=60" alt="C9">                                <span class="mx-1 mb-0">Cloud9</span> </li>
+                            <li class="mt-2 d-block"> <small class="ranking-item__rank mr-2 text-muted">3</small> <img class="ranking-item__logo img-fluid w-2 lazy" src="/img/blank.png" data-src="https://staff-cdn.siege.gg/org-536-wc.png?orig=&amp;width=60&amp;height=60" alt="WC">                                <span class="mx-1 mb-0">Wildcard Gaming</span> </li>
+                            <li class="mt-2 d-block"> <small class="ranking-item__rank mr-2 text-muted">4</small> <img class="ranking-item__logo img-fluid w-2 lazy" src="/img/blank.png" data-src="https://staff-cdn.siege.gg/org-185-xavr.png?orig=&amp;width=60&amp;height=60" alt="XAVR">                                <span class="mx-1 mb-0">Xavier Esports</span> </li>
+                            <li class="mt-2 d-block"> <small class="ranking-item__rank mr-2 text-muted">5</small> <img class="ranking-item__logo img-fluid w-2 lazy" src="/img/blank.png" data-src="https://staff-cdn.siege.gg/org-199-cycp.png?orig=&amp;width=60&amp;height=60" alt="CYCP">                                <span class="mx-1 mb-0">CYCLOPS athlete gaming</span> </li>
+                        </ol>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
     <footer>
         <a href="pages/about-us.html" class="about-us">About us</a>

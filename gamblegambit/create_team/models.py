@@ -67,3 +67,9 @@ class UserProfilePage(models.Model):
 
     def __str__(self):
         return f'{self.user.username} Profile'
+
+class RsixPlayerList(models.Model):
+    name = models.CharField(max_length=10)
+    rating = models.FloatField()
+    totalmatch = models.IntegerField()
+    

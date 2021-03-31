@@ -215,11 +215,14 @@
                 <div class="team-a-title">
                     <h4>{{team_a}}</h4>
                 </div>
-                <div class="team-a-roster row justify-content-around">
+                <div class="team-a-roster row justify-content-around ">
                     {% for player in team_a_photos %} {% for name,photo in player.items %}
                     <div class="player-card-a-{{forloop.counter}} col-1 ply-card player-a m-1  d-flex flex-column justify-content-center align-items-center">
-                        <img src="{{photo}}" class="img-fluid " alt="">
-                        <p class="player-name text-center ">{{name}}</p>
+                        <!-- <img src="{{photo}}" class="img-fluid " alt=""> -->
+                        {% if photo %}
+                        <img src={{photo}} class="img-fluid " alt=""> {% else %}
+                        <img src="https://siege.gg/img/player-silhouette-darker.svg" class="img-fluid " alt=""> {% endif %}
+                        <p class="player-name text-center text-wrap" style="word-wrap: break-word;">{{name}}</p>
                     </div>
                     {% endfor %} {% endfor %}
                 </div>
@@ -231,8 +234,10 @@
                 <div class="team-b-roster row justify-content-around">
                     {% for player in team_b_photos %} {% for name,photo in player.items %}
                     <div class="player-card-b-{{forloop.counter}} col-1 ply-card player-b m-1 d-flex flex-column justify-content-center align-items-center">
-                        <img src="{{photo}}" class="img-fluid " alt="">
-                        <p class="player-name text-center ">{{name}}</p>
+                        {% if photo %}
+                        <img src={{photo}} class="img-fluid " alt=""> {% else %}
+                        <img src="https://siege.gg/img/player-silhouette-darker.svg" class="img-fluid " alt=""> {% endif %}
+                        <p class="player-name text-center text-wrap">{{name}}</p>
                     </div>
                     {% endfor %} {% endfor %}
                 </div>

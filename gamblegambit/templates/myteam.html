@@ -118,8 +118,9 @@
     
     .messages {
         border-radius: 0.5em;
+        background-color: rgb(253, 191, 66);
         box-shadow: 0px 0px 8px 6px rgba(125, 232, 240, 0.986);
-        color: rgb(8, 0, 255);
+        color: rgb(0, 0, 0);
         font-weight: bold;
         padding: 10px;
         margin-top: 10px;
@@ -204,12 +205,20 @@
             <div class="active-team my-team-roster row justify-content-around">
                 {% for player in user_team_photos %} {% if forloop.counter == 3 %} {% for name,photo in player.items %}
                 <div class="player-card-b col-1 ply-card player-b m-1 d-flex flex-column justify-content-center align-items-center">
-                    <img src="{{photo}}" class="img-fluid " alt="">
+                        {% if photo %}
+                        <img src={{photo}} class="img-fluid " alt="">
+                         {% else %}
+                        <img src="https://siege.gg/img/player-silhouette-darker.svg" class="img-fluid " alt=""> 
+                        {% endif %}
                     <p class="player-name text-center " style="color:rgb(85, 0, 255)"><span class="iconify" data-icon="jam:crown-f" style="font-size:1.5rem;"></span>{{name}}</p>
                 </div>
                 {% endfor %} {% else %} {% for name,photo in player.items %}
                 <div class="player-card-b col-1 ply-card player-b m-1 d-flex flex-column justify-content-center align-items-center">
-                    <img src="{{photo}}" class="img-fluid " alt="">
+                        {% if photo %}
+                        <img src={{photo}} class="img-fluid " alt=""> 
+                        {% else %}
+                        <img src="https://siege.gg/img/player-silhouette-darker.svg" class="img-fluid " alt=""> 
+                        {% endif %}
                     <p class="player-name text-center ">{{name}}</p>
                 </div>
                 {% endfor %} {% endif %} {% endfor %}
@@ -217,18 +226,23 @@
         </div>
         </br>
         <div class="buttons-con d-flex justify-content-around">
-        {% if match.isUpcoming %}
+            {% if match.isUpcoming %}
             <button class="btn btn-info capToteam justify-content-center p-1" onclick="updateTeam()">
             <span class="iconify" data-icon="fluent:people-team-add-20-filled" style="font-size:1.5rem;"></span>
             <strong>Change Players</strong> 
-        </button>
-        {% endif %}
-        {% if match.isCompleted %}
+            {% else %}
+            <button class="btn btn-info capToteam justify-content-center p-1" onclick="updateTeam()" disabled>
+            <span class="iconify" data-icon="fluent:people-team-add-20-filled" style="font-size:1.5rem;"></span>
+            <strong>Change Players</strong> 
+        </button> {% endif %} {% if match.isCompleted %}
             <button class="btn btn-success capToteam justify-content-center p-1" onclick="MatchResult()">
             <span class="iconify" data-icon="foundation:results-demographics" data-inline="false" style="font-size:1.5rem;"></span>
             <strong>Show Result</strong> 
-        </button>
-        {% endif %}
+            {% else %}
+            <button class="btn btn-success capToteam justify-content-center p-1" onclick="MatchResult()" disabled>
+            <span class="iconify" data-icon="foundation:results-demographics" data-inline="false" style="font-size:1.5rem;" ></span>
+            <strong>Show Result</strong> 
+        </button> {% endif %}
         </div>
     </div>
 
@@ -241,16 +255,17 @@
         //var y = x.substring(30,33);
         var y = ((x.split("matches/"))[1].split("/"))[0];
         console.log(y);
-        location.href = "/matches/createteam/"+y;
+        location.href = "/matches/createteam/" + y;
         // document.write('<a href="' +  + '">Go Back</a>');    
     }
+
     function MatchResult() {
         //{% comment %} location.href = document.referrer; {% endcomment %}
         var x = location.href;
         //var y = x.substring(30,33);
         var y = ((x.split("matches/"))[1].split("/"))[0];
         console.log(y);
-        location.href = "/matches/result/"+y;
+        location.href = "/matches/result/" + y;
         // document.write('<a href="' +  + '">Go Back</a>');    
     }
 </script>

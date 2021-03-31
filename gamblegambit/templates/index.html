@@ -5,10 +5,83 @@
         $("#home-tab").addClass("active");
     });
 </script>
+<style>
+    .Welcome-box {
+        margin-top: 2em;
+        padding: 5vh;
+        width: 100vw;
+        height: 25vw;
+        /* border: 1px solid black; */
+        background: rgb(131, 253, 253);
+        border-radius: 0.5em;
+        box-shadow: 0px 0px 8px 6px rgba(125, 232, 240, 0.986);
+        /* font-size: 0.5em; */
+    }
+    
+    .welcome-text {
+        /* margin-top: 2em; */
+        font-size: 5vw;
+        text-align: center;
+        font-family: Raleway;
+        word-wrap: break-word;
+        color: #fff;
+        /* color: rgba(0, 0, 0, 0.6);
+        text-shadow: 2px 4px 4px rgba(0, 0, 0, 0.2), 0px -5px 10px rgba(255, 255, 255, 0.15); */
+        text-shadow: -10px 10px 20px rgba(0, 0, 0, 0.5);
+        transition: all 0.5s;
+    }
+    
+    .welcome-text:hover {
+        text-shadow: -1px 1px 0 rgba(0, 0, 0, 1), 1px -1px 0 rgba(0, 0, 0, 1);
+        color: cyan;
+    }
+    
+    .link-cards {
+        margin-top: 2vw;
+        /* border: 1px solid red; */
+        border-radius: 0.5em;
+        transition: all 0.5s;
+        box-shadow: 0px 0px 8px 6px rgba(125, 232, 240, 0.986);
+    }
+    
+    .link-card {
+        height: 3vw;
+        width: 100%;
+        font-size: 1.5vw;
+        background: rgb(131, 253, 253);
+        color: white;
+        text-shadow: -10px 10px 20px rgba(0, 0, 0, 1);
+        transition: all 0.5s;
+    }
+    
+    .link-card:hover {
+        height: 3vw;
+        background: rgb(0, 123, 123);
+        color: black;
+        text-shadow: -10px 10px 20px rgba(0, 0, 0, 0.5);
+        box-shadow: 0px 0px 8px 6px rgba(0, 161, 173, 0.986);
+    }
+</style>
 <div class="container">
-    <div class="news"> NEWS ARTICLES</div>
-    <div class="current"> RANKING</div>
-    <div class="results"> MATCH RESULTS</div>
-</div>
+    <div class="container Welcome-box">
+        <div class="welcome-text">
+            Welcome to GAMBLE:GAMBIT
+            <br/>{{user | capfirst}}
+        </div>
+    </div>
 
+    <div class="link-cards d-flex justify-content-around align-items-center text-center">
+
+        <a href="/matches/upcoming" class="link-card d-flex justify-content-center align-items-center" style="text-decoration: none;">
+            For upcoming matches 
+        </a>
+        <a href="/matches/results" class="link-card d-flex justify-content-center align-items-center" style="text-decoration: none;">
+            For completed matches 
+
+        </a>
+        <a href="/matches/stats" class="link-card d-flex justify-content-center align-items-center" style="text-decoration: none;">
+            For your matches 
+        </a>
+    </div>
+</div>
 {% endblock content %}

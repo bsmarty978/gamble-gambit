@@ -39,3 +39,8 @@ class UpcomingMatchesList(models.Model):
     pass
 
 
+class RsixPlayerList(models.Model):
+    name = models.CharField(max_length=10)
+    rating = models.FloatField()
+    totalmatch = models.IntegerField()
+    

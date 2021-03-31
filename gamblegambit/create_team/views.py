@@ -15,12 +15,14 @@ from django.contrib.auth.models import User
 import requests   #get json data from locally hosted spider 
 
 import dateparser
-from .models import Matches,MyTeam
+from .models import Matches,MyTeam,RsixPlayerList
 from django.db.utils import IntegrityError
 from django.utils import timezone
 #method to get data from locally stored json file static way
 # f = open("upcominglist.json",)
 # match_list = json.load(f)
+# f = open("people.json",)
+# r6playerlist = json.load(f)
 
 def str_to_datetime_convt(matchTime):
     return (dateparser.parse(matchTime,settings={'RETURN_AS_TIMEZONE_AWARE': True}))
@@ -146,10 +148,10 @@ def csgo_roster_adder(match):
     resp_2 = r_2.json()
 
     for player in resp_1[0]["players"]:
-        photo = player.get("image_url") if not match.get("image_url") else "None"
+        photo = player.get("image_url") if not match.get("image_url") else "https://siege.gg/img/player-silhouette-darker.svg"
         team_a_photos.append({player["name"]:photo})
     for player in resp_2[0]["players"]:
-        photo = player.get("image_url") if not match.get("image_url") else "None"
+        photo = player.get("image_url") if not match.get("image_url") else "https://siege.gg/img/player-silhouette-darker.svg"
         team_b_photos.append({player["name"]:photo})
     match["team_a_photos"] = team_a_photos
     match["team_b_photos"] = team_b_photos
@@ -184,6 +186,7 @@ def sample(request):
 def create_team(request, title):
     # print(title)  for debug purpose
     # print(request.user.is_authenticated)  checks user is authenicted or not
+    print(title)
     match_in_DB = Matches.objects.get(id=int(title))
     if title == "DarkZero Esports vs TSM":
         match_find = Matches.objects.get(title=title)
@@ -504,6 +507,7 @@ def match_result_score(request, id):
 
 @login_required(login_url='login')
 def stats_page(request):
+    # r6playerDBadder()
     MyMatchesList = MyTeam.objects.filter(username = request.user.username)
     mymatches_list = []
     for m in MyMatchesList:
@@ -546,4 +550,10 @@ def stats_page(request):
 #     return render(request,"myprofilepage.html",data)
 
 
-
+# def r6playerDBadder():
+#     for player in r6playerlist:
+#         RsixPlayerList.objects.create(
+#          name=player["name"],
+#          rating=player["rating"],
+#          totalmatch=player["total matches"],
+#         )
