@@ -140,6 +140,12 @@
         for (var field in form_fields) {
             form_fields[field].className += ' form-control'
         }
+
+        $("#id_username").attr('pattern','[a-zA-Z][a-zA-Z0-9-_.]{1,10}');
+        //$("#id_password1").attr('pattern','^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
+        //$("#id_password2").attr('pattern','^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
+        $("#id_password1").attr('minlength','8');
+        $("#id_password2").attr('minlength','8');
     </script>
 </body>
 
